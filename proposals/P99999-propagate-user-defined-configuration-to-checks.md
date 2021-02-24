@@ -60,9 +60,9 @@ The configuration file could be used to store the same configuration expressed b
 
 ```yaml
 compat:
-  version: openshift-4.6
+    version: openshift-4.6
 linter:
-  failWhen: ERROR
+    failWhen: ERROR
 ```
 
 The example below uses the configuration file above:
@@ -71,3 +71,26 @@ The example below uses the configuration file above:
 > chart-verifier verify --config openshift-4.6.yaml chart.tgz
 ```
 
+## Checks API
+
+Currently the `CheckFunc` type is defined as the example below:
+
+```go
+type CheckFunc func(uri string) (Result, error)
+```
+
+The current `CheckFunc` type is too simplistic, and should be modified to either receive an extra parameter containing
+the options to be considered by the check, or a more complex type composing both of this values:
+
+```go
+type CheckFunc func(uri string, opts map[string]interface{}) (Result, error)
+
+```
+
+The `opts` map is configuration for the check found in the configuration file overridden by the `--set`; in the `openshift-4.6.yaml`, the `compat` check would expect the following values in `opts`:
+
+```go
+opts := map[string]interface{}{
+    "version": "openshift-4.6"
+}
+```
