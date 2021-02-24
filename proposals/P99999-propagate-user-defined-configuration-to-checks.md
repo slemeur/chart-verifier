@@ -24,3 +24,50 @@ Having both mechanisms to influence the verification session is very useful for 
 1. Configuration files can be distributed as *profiles*, for example one for OpenShift 4.6, another for OpenShift 4.7;
 1. Profile defaults can be overridden, helping developers and other power users to debug, change checks parameters
    before committing to write a configuration/profile file.
+
+## Usage
+
+Some changes are required in the `chart-verifier` program, more specifically in the `verify` command, where the
+flag `--set` should be introduced, as in the example below:
+
+```text
+> chart-verifier verify --set compat.version=openshift-4.6 --enable compat chart.tgz
+```
+
+As the example above shows, the format of a `--set` flag is `KEY=VALUE`, where `KEY` is the path of the value in the
+configuration file and `VALUE` the value to be assigned to the configuration.
+
+In the example, `compat` is the check name, and `version` is the key the `compat` check will use to verify the
+compatibility of the given chart, in this case against the `openshift-4.6` profile.
+
+Another example related to the severity of the Helm linter check:
+
+```text
+> chart-verifier verify --set linter.failWhen=ERROR --enable linter chart.tgz
+```
+
+Both configurations could be use simultaneously by providing multiple `--set` flags:
+
+```text
+> chart-verifier verify                \
+    --set compat.version=openshift-4.6 \
+    --set linter.failWhen=ERROR        \
+    --enable compat,linter             \
+    chart.tgz
+```
+
+The configuration file could be used to store the same configuration expressed by the usage of the `--set` flag above:
+
+```yaml
+compat:
+  version: openshift-4.6
+linter:
+  failWhen: ERROR
+```
+
+The example below uses the configuration file above:
+
+```text
+> chart-verifier verify --config openshift-4.6.yaml chart.tgz
+```
+
