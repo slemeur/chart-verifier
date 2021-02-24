@@ -94,3 +94,12 @@ opts := map[string]interface{}{
     "version": "openshift-4.6"
 }
 ```
+
+## Test Scenarios
+
+There are a couple of scenarios that should be tested, in order to validate the proposal implementation (assuming a `dummy` check is available):
+
+* The `dummy` check should fail by default, regardless the chart;
+* The `dummy` check should succeed when `dummy.ok` is set to `true` using the `--set` flag;
+* The `dummy` check should succeed when the configuration file configures the `dummy.ok` configuration value to `true`; and
+* The `dummy` check should fail when the configuration file configures the `dummy.ok` configuration value to `true` and `dummy.ok` is set to `false` using the `--set` flag.
