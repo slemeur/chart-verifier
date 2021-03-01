@@ -21,6 +21,7 @@ import (
 	"errors"
 	"testing"
 
+	"github.com/spf13/viper"
 	"github.com/stretchr/testify/require"
 
 	"github.com/redhat-certification/chart-verifier/pkg/chartverifier/checks"
@@ -36,15 +37,15 @@ func TestCertifier_Certify(t *testing.T) {
 
 	dummyCheckName := "dummy-check"
 
-	erroredCheck := func(uri string) (checks.Result, error) {
+	erroredCheck := func(uri string, _ *viper.Viper) (checks.Result, error) {
 		return checks.Result{}, errors.New("artificial error")
 	}
 
-	negativeCheck := func(uri string) (checks.Result, error) {
+	negativeCheck := func(uri string, _ *viper.Viper) (checks.Result, error) {
 		return checks.Result{Ok: false}, nil
 	}
 
-	positiveCheck := func(uri string) (checks.Result, error) {
+	positiveCheck := func(uri string, _ *viper.Viper) (checks.Result, error) {
 		return checks.Result{Ok: true}, nil
 	}
 

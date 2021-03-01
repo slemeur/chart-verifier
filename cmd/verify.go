@@ -22,6 +22,7 @@ import (
 	"github.com/pkg/errors"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 	"gopkg.in/yaml.v3"
 
 	"github.com/redhat-certification/chart-verifier/pkg/chartverifier"
@@ -76,14 +77,15 @@ func buildChecks(all, enabled, disabled []string) ([]string, error) {
 	}
 }
 
-func buildCertifier(checks []string) (chartverifier.Certifier, error) {
+func buildCertifier(config *viper.Viper, checks []string) (chartverifier.Certifier, error) {
 	return chartverifier.NewCertifierBuilder().
 		SetChecks(checks).
+		SetConfig(config).
 		Build()
 }
 
 // NewVerifyCmd creates ...
-func NewVerifyCmd(_ map[string]interface{}) *cobra.Command {
+func NewVerifyCmd(config *viper.Viper) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "verify <chart-uri>",
 		Args:  cobra.ExactArgs(1),
@@ -94,7 +96,7 @@ func NewVerifyCmd(_ map[string]interface{}) *cobra.Command {
 				return err
 			}
 
-			certifier, err := buildCertifier(checks)
+			certifier, err := buildCertifier(config, checks)
 			if err != nil {
 				return err
 			}
@@ -136,9 +138,6 @@ func NewVerifyCmd(_ map[string]interface{}) *cobra.Command {
 	return cmd
 }
 
-// verifyCmd represents the lint command
-var verifyCmd = NewVerifyCmd(nil)
-
 func init() {
-	rootCmd.AddCommand(verifyCmd)
+	rootCmd.AddCommand(NewVerifyCmd(viper.GetViper()))
 }

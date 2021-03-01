@@ -20,12 +20,14 @@ import (
 	"errors"
 
 	"github.com/redhat-certification/chart-verifier/pkg/chartverifier/checks"
+	"github.com/spf13/viper"
 )
 
 var defaultRegistry checks.Registry
 
 func init() {
 	defaultRegistry = checks.NewRegistry()
+	defaultRegistry.Add("dummy", checks.Dummy)
 	defaultRegistry.Add("has-readme", checks.HasReadme)
 	defaultRegistry.Add("is-helm-v3", checks.IsHelmV3)
 	defaultRegistry.Add("contains-test", checks.ContainsTest)
@@ -42,6 +44,7 @@ func DefaultRegistry() checks.Registry {
 
 type certifierBuilder struct {
 	registry checks.Registry
+	config   *viper.Viper
 	checks   []string
 }
 
@@ -52,6 +55,11 @@ func (b *certifierBuilder) SetRegistry(registry checks.Registry) CertifierBuilde
 
 func (b *certifierBuilder) SetChecks(checks []string) CertifierBuilder {
 	b.checks = checks
+	return b
+}
+
+func (b *certifierBuilder) SetConfig(config *viper.Viper) CertifierBuilder {
+	b.config = config
 	return b
 }
 
@@ -67,6 +75,7 @@ func (b *certifierBuilder) Build() (Certifier, error) {
 	return &certifier{
 		registry:       b.registry,
 		requiredChecks: b.checks,
+		config:         b.config,
 	}, nil
 }
 

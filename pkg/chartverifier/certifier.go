@@ -18,6 +18,7 @@ package chartverifier
 
 import (
 	"github.com/redhat-certification/chart-verifier/pkg/chartverifier/checks"
+	"github.com/spf13/viper"
 )
 
 type CheckNotFoundErr string
@@ -37,6 +38,7 @@ func NewCheckErr(err error) error {
 }
 
 type certifier struct {
+	config         *viper.Viper
 	registry       checks.Registry
 	requiredChecks []string
 }
@@ -53,15 +55,17 @@ func (c *certifier) Certify(uri string) (Certificate, error) {
 		SetChartVersion(chrt.AppVersion())
 
 	for _, name := range c.requiredChecks {
-		if checkFunc, ok := c.registry.Get(name); !ok {
+		checkFunc, ok := c.registry.Get(name)
+		if !ok {
 			return nil, CheckNotFoundErr(name)
-		} else {
-			r, err := checkFunc(uri)
-			if err != nil {
-				return nil, NewCheckErr(err)
-			}
-			_ = result.AddCheckResult(name, r)
 		}
+
+		r, err := checkFunc(uri, c.config.Sub(name))
+		if err != nil {
+			return nil, NewCheckErr(err)
+		}
+		_ = result.AddCheckResult(name, r)
+
 	}
 
 	return result.Build()
