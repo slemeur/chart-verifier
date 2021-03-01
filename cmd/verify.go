@@ -18,6 +18,7 @@ package cmd
 
 import (
 	"encoding/json"
+	"strings"
 
 	"github.com/pkg/errors"
 
@@ -42,6 +43,8 @@ var (
 	disabledChecksFlag []string
 	// outputFormatFlag contains the output format the user has specified: default, yaml or json.
 	outputFormatFlag string
+	// setOverridesFlag contains the overrides the user has specified through the --set flag.
+	setOverridesFlag []string
 )
 
 func filterChecks(set []string, subset []string, setEnabled bool, subsetEnabled bool) ([]string, error) {
@@ -96,6 +99,12 @@ func NewVerifyCmd(config *viper.Viper) *cobra.Command {
 				return err
 			}
 
+			// naively override values from the configuration
+			for _, val := range setOverridesFlag {
+				parts := strings.Split(val, "=")
+				config.Set(parts[0], parts[1])
+			}
+
 			certifier, err := buildCertifier(config, checks)
 			if err != nil {
 				return err
@@ -134,6 +143,8 @@ func NewVerifyCmd(config *viper.Viper) *cobra.Command {
 	cmd.Flags().StringSliceVarP(&disabledChecksFlag, "disable", "x", nil, "all checks will be enabled except the informed ones")
 
 	cmd.Flags().StringVarP(&outputFormatFlag, "output", "o", "", "the output format: default, json or yaml")
+
+	cmd.Flags().StringSliceVarP(&setOverridesFlag, "set", "s", []string{}, "overrides a configuration, e.g: dummy.ok=false")
 
 	return cmd
 }

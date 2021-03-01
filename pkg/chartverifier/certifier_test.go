@@ -53,6 +53,7 @@ func TestCertifier_Certify(t *testing.T) {
 
 	t.Run("Should return error if check does not exist", func(t *testing.T) {
 		c := &certifier{
+			config:         viper.New(),
 			registry:       checks.NewRegistry(),
 			requiredChecks: []string{dummyCheckName},
 		}
@@ -64,6 +65,7 @@ func TestCertifier_Certify(t *testing.T) {
 
 	t.Run("Should return error if check exists and returns error", func(t *testing.T) {
 		c := &certifier{
+			config:         viper.New(),
 			registry:       checks.NewRegistry().Add(dummyCheckName, erroredCheck),
 			requiredChecks: []string{dummyCheckName},
 		}
@@ -76,6 +78,7 @@ func TestCertifier_Certify(t *testing.T) {
 	t.Run("Result should be negative if check exists and returns negative", func(t *testing.T) {
 
 		c := &certifier{
+			config:         viper.New(),
 			registry:       checks.NewRegistry().Add(dummyCheckName, negativeCheck),
 			requiredChecks: []string{dummyCheckName},
 		}
@@ -88,6 +91,7 @@ func TestCertifier_Certify(t *testing.T) {
 
 	t.Run("Result should be positive if check exists and returns positive", func(t *testing.T) {
 		c := &certifier{
+			config:         viper.New(),
 			registry:       checks.NewRegistry().Add(dummyCheckName, positiveCheck),
 			requiredChecks: []string{dummyCheckName},
 		}

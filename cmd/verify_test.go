@@ -328,6 +328,7 @@ func TestCertify(t *testing.T) {
 		cmd.SetArgs([]string{
 			"-e", "dummy",
 			"-o", "yaml",
+			"--set", "dummy.ok=false",
 			"../pkg/chartverifier/checks/chart-0.1.0-v3.valid.tgz",
 		})
 		require.NoError(t, cmd.Execute())

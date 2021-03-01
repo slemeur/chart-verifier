@@ -60,7 +60,12 @@ func (c *certifier) Certify(uri string) (Certificate, error) {
 			return nil, CheckNotFoundErr(name)
 		}
 
-		r, err := checkFunc(uri, c.config.Sub(name))
+		checkConfig := c.config.Sub(name)
+		if checkConfig == nil {
+			checkConfig = viper.New()
+		}
+
+		r, err := checkFunc(uri, checkConfig)
 		if err != nil {
 			return nil, NewCheckErr(err)
 		}
