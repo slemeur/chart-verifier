@@ -83,9 +83,10 @@ The current `CheckFunc` type is too simplistic, and should be modified to either
 the options to be considered by the check, or a more complex type composing both of this values:
 
 ```go
-type CheckFunc func(uri string, opts map[string]interface{}) (Result, error)
-
+type CheckFunc func(uri string, config *viper.Viper) (Result, error)
 ```
+
+`*viper.Viper` is used since it has already been integrated in the main program, and also because it offers the required configuration semantics to isolate checks configuration.
 
 The `opts` map is configuration for the check found in the configuration file overridden by the `--set`; in the `openshift-4.6.yaml`, the `compat` check would expect the following values in `opts`:
 
