@@ -82,7 +82,8 @@ func buildCertifier(checks []string) (chartverifier.Certifier, error) {
 		Build()
 }
 
-func NewVerifyCmd() *cobra.Command {
+// NewVerifyCmd creates ...
+func NewVerifyCmd(_ map[string]interface{}) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "verify <chart-uri>",
 		Args:  cobra.ExactArgs(1),
@@ -136,7 +137,7 @@ func NewVerifyCmd() *cobra.Command {
 }
 
 // verifyCmd represents the lint command
-var verifyCmd = NewVerifyCmd()
+var verifyCmd = NewVerifyCmd(nil)
 
 func init() {
 	rootCmd.AddCommand(verifyCmd)
