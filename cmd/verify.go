@@ -18,7 +18,6 @@ package cmd
 
 import (
 	"encoding/json"
-	"strings"
 
 	"github.com/pkg/errors"
 
@@ -80,13 +79,6 @@ func buildChecks(all, enabled, disabled []string) ([]string, error) {
 	}
 }
 
-func buildCertifier(config *viper.Viper, checks []string) (chartverifier.Certifier, error) {
-	return chartverifier.NewCertifierBuilder().
-		SetChecks(checks).
-		SetConfig(config).
-		Build()
-}
-
 // NewVerifyCmd creates ...
 func NewVerifyCmd(config *viper.Viper) *cobra.Command {
 	cmd := &cobra.Command{
@@ -99,13 +91,13 @@ func NewVerifyCmd(config *viper.Viper) *cobra.Command {
 				return err
 			}
 
-			// naively override values from the configuration
-			for _, val := range setOverridesFlag {
-				parts := strings.Split(val, "=")
-				config.Set(parts[0], parts[1])
-			}
+			certifier, err := chartverifier.
+				NewCertifierBuilder().
+				SetChecks(checks).
+				SetConfig(config).
+				SetOverrides(setOverridesFlag).
+				Build()
 
-			certifier, err := buildCertifier(config, checks)
 			if err != nil {
 				return err
 			}

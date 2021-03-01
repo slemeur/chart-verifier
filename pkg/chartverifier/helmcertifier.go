@@ -25,6 +25,7 @@ type CertifierBuilder interface {
 	SetRegistry(registry checks.Registry) CertifierBuilder
 	SetChecks(checks []string) CertifierBuilder
 	SetConfig(config *viper.Viper) CertifierBuilder
+	SetOverrides([]string) CertifierBuilder
 	Build() (Certifier, error)
 }
 
