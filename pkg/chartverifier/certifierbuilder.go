@@ -45,10 +45,10 @@ func DefaultRegistry() checks.Registry {
 }
 
 type certifierBuilder struct {
-	registry  checks.Registry
-	config    *viper.Viper
 	checks    []string
+	config    *viper.Viper
 	overrides []string
+	registry  checks.Registry
 }
 
 func (b *certifierBuilder) SetRegistry(registry checks.Registry) CertifierBuilder {
