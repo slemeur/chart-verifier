@@ -43,6 +43,14 @@ type certifier struct {
 	requiredChecks []string
 }
 
+func (c *certifier) subConfig(name string) *viper.Viper {
+	if sub := c.config.Sub(name); sub == nil {
+		return viper.New()
+	} else {
+		return sub
+	}
+}
+
 func (c *certifier) Certify(uri string) (Certificate, error) {
 
 	chrt, _, err := checks.LoadChartFromURI(uri)
@@ -60,12 +68,7 @@ func (c *certifier) Certify(uri string) (Certificate, error) {
 			return nil, CheckNotFoundErr(name)
 		}
 
-		checkConfig := c.config.Sub(name)
-		if checkConfig == nil {
-			checkConfig = viper.New()
-		}
-
-		r, err := checkFunc(uri, checkConfig)
+		r, err := checkFunc(uri, c.subConfig(name))
 		if err != nil {
 			return nil, NewCheckErr(err)
 		}
