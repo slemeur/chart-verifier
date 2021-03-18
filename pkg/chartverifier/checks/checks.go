@@ -18,7 +18,9 @@ package checks
 
 import (
 	"fmt"
+	"net/http"
 	"path"
+	"reflect"
 	"strconv"
 	"strings"
 
@@ -201,6 +203,122 @@ func HelmLint(uri string, _ *viper.Viper) (Result, error) {
 		r = Result{Ok: false, Reason: fmt.Sprintf("%s %s", HelmLintHasFailedPrefix, reason)}
 	}
 	return r, nil
+}
+
+func FindImages(uri string, _ *viper.Viper) (Result, error) {
+	c, _, err := LoadChartFromURI(uri)
+
+	r := Result{Ok: true, Reason: HelmLintSuccessful}
+	if err != nil {
+		return r,err
+	}
+
+	var images []interface{}
+	getValuesFromMap("image",c.Values,&images)
+	fmt.Printf("%d images found\n",len(images))
+	for _,i := range images {
+		if reflect.ValueOf(i).Kind() == reflect.Map {
+			for k, v := range i.(map[string]interface{}) {
+				fmt.Printf("Found Image property: %s : %v \n", k, v)
+				if k == "repository" {
+					_ = isImageCertified(v.(string))
+				}
+			}
+		} else if reflect.ValueOf(i).Kind() == reflect.String {
+			fmt.Printf("Found Image: %s\n",i)
+			_ = isImageCertified(i.(string))
+		} else {
+			fmt.Printf("Found Image but not map or string but %s : %v\n",reflect.ValueOf(i).Kind(),i)
+		}
+	}
+
+	return r,err
+}
+
+func getValuesFromMap(key string,m map[string]interface{},images *[]interface{}){
+
+		for k, v := range m {
+			//vType := reflect.TypeOf(v)
+			//fmt.Printf("Find Images: key = %s, type = %s, value = %v  \n", k, vType, v)
+			if k == key {
+				fmt.Printf("!!!!! Find Images: found image in map, value = %v  \n", v)
+				*images = append(*images,v)
+			} else {
+				if reflect.ValueOf(v).Kind() == reflect.Map {
+					if len(v.(map[string]interface{})) > 0 {
+						//fmt.Printf("Find Images: found inner map : %s \n", k)
+						getValuesFromMap(key, v.(map[string]interface{}),images)
+						//if len(images) >0 {
+						//	for image := range images {
+						//		fmt.Printf("!!!!! Find Images(a): found image in map, value = %v  \n", image)
+						//		results = append(results, image)
+						//	}
+						//}
+					}
+				} else if reflect.ValueOf(v).Kind() == reflect.Slice {
+					if len(v.([]interface{})) > 0 {
+						getValuesFromSlice(key,v.([]interface{}),images)
+						//if len(images) >0 {
+						//	for image := range images {
+						//		fmt.Printf("!!!!! Find Images(b): found image in map, value = %v  \n", image)
+						//		results = append(results, image)
+						//	}
+						//}
+					}
+				}
+			}
+		}
+}
+
+func getValuesFromSlice(key string, s []interface{},images *[]interface{}) []interface{} {
+
+	var results []interface{}
+	for _, v := range s {
+		if v == key {
+			fmt.Printf("!!!!! Find Images: found image in slice, value = %v  \n", v)
+			*images = append(*images,v)
+		} else {
+			if reflect.ValueOf(v).Kind() == reflect.Map {
+				if len(v.(map[string]interface{})) > 0 {
+					//fmt.Printf("Find Images: found inner map : %s \n",v)
+					getValuesFromMap(key, v.(map[string]interface{}),images)
+					//if len(images) >0 {
+					//	for image := range images {
+					//		fmt.Printf("!!!!! Find Images(c): found image in map, value = %v  \n", image)
+					//		results = append(results, image)
+					//	}
+					//}
+				}
+			} else if reflect.ValueOf(v).Kind() == reflect.Slice {
+				if len(v.([]interface{})) > 0 {
+					getValuesFromSlice(key,v.([]interface{}),images)
+					//if len(images) >0 {
+					//	for image := range images {
+					//		fmt.Printf("!!!!! Find Images(d): found image in map, value = %v  \n", image)
+					//		results = append(results, image)
+					//	}
+					//}
+				}
+			}
+		}
+	}
+	return results
+}
+
+func isImageCertified(imageId string) error {
+	var err error
+	//requestUrl := fmt.Sprintf("https://catalog.redhat.com/api/containers/v1/projects/certification/id/%s",imageId)
+	requestUrl := fmt.Sprintf("https://catalog.redhat.com/api/containers/v1/images")
+	req, _ := http.NewRequest("GET", requestUrl, nil)
+	req.Header.Set("X-API-KEY","RedHatChartVerifier")
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		fmt.Printf("Error checking certification for %s : %v\n",requestUrl,err)
+	} else {
+		fmt.Printf("Certification response for %s : %d : %s\n",requestUrl,resp.StatusCode,resp.Status)
+	}
+	return err
 }
 
 func NotContainsInfraPluginsAndDrivers(uri string, _ *viper.Viper) (Result, error) {

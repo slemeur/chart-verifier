@@ -320,3 +320,25 @@ func TestHelmLint(t *testing.T) {
 	}
 
 }
+
+func TestImages (t *testing.T) {
+	type testCase struct {
+		description string
+		uri         string
+	}
+	positiveTestCases := []testCase{
+		{description: "jenkins-2.5.4", uri: "charts/jenkins-2.5.4.tgz"},
+		{description: "Helm lint works for valid chart", uri: "chart-0.1.0-v3.valid.tgz"},
+	}
+	for _, tc := range positiveTestCases {
+		t.Run(tc.description, func(t *testing.T) {
+			config := viper.New()
+			r,err := FindImages(tc.uri, config)
+			require.NoError(t, err)
+			require.NotNil(t, r)
+			require.True(t, r.Ok)
+			require.Equal(t, HelmLintSuccessful, r.Reason)
+		})
+	}
+
+}
