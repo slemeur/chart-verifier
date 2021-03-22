@@ -49,7 +49,7 @@ func TestCertifier_Certify(t *testing.T) {
 		return checks.Result{Ok: true}, nil
 	}
 
-	validChartUri := "http://" + addr + "/charts/chart-0.1.0-v3.valid.tgz"
+	validChartUri := "http://" + addr + "/charts/chart-0.1.1-v3.valid.tgz"
 
 	t.Run("Should return error if check does not exist", func(t *testing.T) {
 		c := &certifier{

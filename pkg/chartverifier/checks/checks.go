@@ -18,10 +18,12 @@ package checks
 
 import (
 	"fmt"
+	"os/exec"
 	"path"
 	"strings"
 
 	"helm.sh/helm/v3/pkg/lint"
+	"helm.sh/helm/v3/pkg/engine"
 
 	"github.com/pkg/errors"
 	"github.com/spf13/viper"
@@ -132,6 +134,37 @@ func ContainsValuesSchema(uri string, _ *viper.Viper) (Result, error) {
 	}
 
 	return r, nil
+}
+
+func RenderChart(uri string, _ *viper.Viper) {
+	e := engine.Engine{
+		Strict: false,
+	}
+	c, _, _ := LoadChartFromURI(uri)
+
+	/*
+	for _,f := range c.Files {
+		fmt.Printf("Chart File : %s \n",f.Name)
+	}
+	for _,t := range c.Templates {
+		fmt.Printf("Template File : %s \n",t.Name)
+	}
+	*/
+
+	renderedChart,err := e.Render(c,nil)
+
+	if err!=nil {
+		fmt.Printf("Error rendering chart : %s : %v\n",uri,err)
+	} else {
+		fmt.Printf("Rendered chart : %v\n",renderedChart)
+	}
+	cmd := "helm template " + uri + " | yq '..|.image? | select(.)' | sort -u"
+	out, err := exec.Command("bash","-c",cmd).Output()
+
+	if err != nil {
+		fmt.Printf("Error executing command :  %s : %v", cmd,err)
+	}
+	fmt.Printf("The template is:\n%s\n", out)
 }
 
 func KeywordsAreOpenshiftCategories(uri string, _ *viper.Viper) (Result, error) {

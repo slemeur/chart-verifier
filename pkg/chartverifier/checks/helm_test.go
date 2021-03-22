@@ -35,11 +35,11 @@ func TestLoadChartFromURI(t *testing.T) {
 
 	positiveCases := []testCase{
 		{
-			uri:         "chart-0.1.0-v3.valid.tgz",
+			uri:         "chart-0.1.1-v3.valid.tgz",
 			description: "absolute path",
 		},
 		{
-			uri:         "http://" + addr + "/charts/chart-0.1.0-v3.valid.tgz",
+			uri:         "http://" + addr + "/charts/chart-0.1.1-v3.valid.tgz",
 			description: "remote path, http",
 		},
 	}

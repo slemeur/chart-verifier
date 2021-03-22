@@ -30,7 +30,7 @@ func TestIsHelmV3(t *testing.T) {
 	}
 
 	positiveTestCases := []testCase{
-		{description: "valid tarball", uri: "chart-0.1.0-v3.valid.tgz"},
+		{description: "valid tarball", uri: "chart-0.1.1-v3.valid.tgz"},
 	}
 
 	for _, tc := range positiveTestCases {
@@ -67,7 +67,7 @@ func TestHasReadme(t *testing.T) {
 	}
 
 	positiveTestCases := []testCase{
-		{description: "chart with README", uri: "chart-0.1.0-v3.valid.tgz"},
+		{description: "chart with README", uri: "chart-0.1.1-v3.valid.tgz"},
 	}
 
 	for _, tc := range positiveTestCases {
@@ -104,7 +104,7 @@ func TestContainsTest(t *testing.T) {
 	}
 
 	positiveTestCases := []testCase{
-		{description: "tarball contains at least one test", uri: "chart-0.1.0-v3.valid.tgz"},
+		{description: "tarball contains at least one test", uri: "chart-0.1.1-v3.valid.tgz"},
 	}
 
 	for _, tc := range positiveTestCases {
@@ -119,7 +119,7 @@ func TestContainsTest(t *testing.T) {
 	}
 
 	negativeTestCases := []testCase{
-		{description: "tarball contains at least one test", uri: "chart-0.1.0-v3.valid.notest.tgz"},
+		{description: "tarball contains at least one test", uri: "chart-0.1.1-v3.valid.notest.tgz"},
 	}
 
 	for _, tc := range negativeTestCases {
@@ -141,7 +141,7 @@ func TestHasValuesSchema(t *testing.T) {
 	}
 
 	positiveTestCases := []testCase{
-		{description: "chart with values", uri: "chart-0.1.0-v3.valid.tgz"},
+		{description: "chart with values", uri: "chart-0.1.1-v3.valid.tgz"},
 	}
 
 	for _, tc := range positiveTestCases {
@@ -178,7 +178,7 @@ func TestHasValues(t *testing.T) {
 	}
 
 	positiveTestCases := []testCase{
-		{description: "chart with values", uri: "chart-0.1.0-v3.valid.tgz"},
+		{description: "chart with values", uri: "chart-0.1.1-v3.valid.tgz"},
 	}
 
 	for _, tc := range positiveTestCases {
@@ -215,7 +215,7 @@ func TestHasMinKubeVersion(t *testing.T) {
 	}
 
 	positiveTestCases := []testCase{
-		{description: "minimum Kubernetes version specified", uri: "chart-0.1.0-v3.valid.tgz"},
+		{description: "minimum Kubernetes version specified", uri: "chart-0.1.1-v3.valid.tgz"},
 	}
 
 	for _, tc := range positiveTestCases {
@@ -253,7 +253,7 @@ func TestNotContainCRDs(t *testing.T) {
 	}
 
 	positiveTestCases := []testCase{
-		{description: "Not contain CRDs", uri: "chart-0.1.0-v3.valid.tgz"},
+		{description: "Not contain CRDs", uri: "chart-0.1.1-v3.valid.tgz"},
 	}
 
 	for _, tc := range positiveTestCases {
@@ -290,7 +290,7 @@ func TestHelmLint(t *testing.T) {
 	}
 
 	positiveTestCases := []testCase{
-		{description: "Helm lint works for valid chart", uri: "chart-0.1.0-v3.valid.tgz"},
+		{description: "Helm lint works for valid chart", uri: "chart-0.1.1-v3.valid.tgz"},
 	}
 
 	for _, tc := range positiveTestCases {
@@ -318,5 +318,28 @@ func TestHelmLint(t *testing.T) {
 			require.Contains(t, r.Reason, HelmLintHasFailedPrefix)
 		})
 	}
+
+}
+
+func TestHelmRender(t *testing.T) {
+
+	type testCase struct {
+		description string
+		uri         string
+	}
+
+	positiveTestCases := []testCase{
+		{description: "tarball contains at least one test", uri: "chart-0.1.0-v3.valid.tgz"},
+		{description: "tarball contains at least one test", uri: "chart-0.1.1-v3.valid.tgz"},
+		{description: "jenkins tarball", uri: "jenkins-2.5.4.tgz"},
+	}
+
+	for _, tc := range positiveTestCases {
+		t.Run(tc.description, func(t *testing.T) {
+			config := viper.New()
+			RenderChart(tc.uri, config)
+		})
+	}
+
 
 }
