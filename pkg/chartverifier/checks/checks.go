@@ -18,12 +18,13 @@ package checks
 
 import (
 	"fmt"
-	"os/exec"
+	//"os/exec"
 	"path"
 	"strings"
 
 	"helm.sh/helm/v3/pkg/lint"
-	"helm.sh/helm/v3/pkg/engine"
+	"helm.sh/helm/v3/pkg/chartutil"
+	"github.com/redhat-certification/chart-verifier/pkg/chartverifier/checks/engine"
 
 	"github.com/pkg/errors"
 	"github.com/spf13/viper"
@@ -151,20 +152,32 @@ func RenderChart(uri string, _ *viper.Viper) {
 	}
 	*/
 
-	renderedChart,err := e.Render(c,nil)
+	//for key,value := range c.Values {
+	//	fmt.Printf("%s : %v\n",key, value)
+	//}
+
+	v, err := chartutil.CoalesceValues(c, make(map[string]interface{}))
+	if err != nil {
+		fmt.Printf("Failed to coalesce values: %s", err)
+	} else {
+		fmt.Printf("Coalesce values: %v", v)
+	}
+
+	renderedChart,err := e.Render(c,v)
 
 	if err!=nil {
 		fmt.Printf("Error rendering chart : %s : %v\n",uri,err)
+		fmt.Printf("Rendered chart : %v\n",renderedChart)
 	} else {
 		fmt.Printf("Rendered chart : %v\n",renderedChart)
 	}
-	cmd := "helm template " + uri + " | yq '..|.image? | select(.)' | sort -u"
-	out, err := exec.Command("bash","-c",cmd).Output()
+	//cmd := "helm template " + uri + " | yq '..|.image? | select(.)' | sort -u"
+	//out, err := exec.Command("bash","-c",cmd).Output()
 
-	if err != nil {
-		fmt.Printf("Error executing command :  %s : %v", cmd,err)
-	}
-	fmt.Printf("The template is:\n%s\n", out)
+	//if err != nil {
+	//	fmt.Printf("Error executing command :  %s : %v", cmd,err)
+	//}
+	//fmt.Printf("The template is:\n%s\n", out)
 }
 
 func KeywordsAreOpenshiftCategories(uri string, _ *viper.Viper) (Result, error) {

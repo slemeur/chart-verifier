@@ -330,8 +330,6 @@ func TestHelmRender(t *testing.T) {
 
 	positiveTestCases := []testCase{
 		{description: "tarball contains at least one test", uri: "chart-0.1.0-v3.valid.tgz"},
-		{description: "tarball contains at least one test", uri: "chart-0.1.1-v3.valid.tgz"},
-		{description: "jenkins tarball", uri: "jenkins-2.5.4.tgz"},
 	}
 
 	for _, tc := range positiveTestCases {
