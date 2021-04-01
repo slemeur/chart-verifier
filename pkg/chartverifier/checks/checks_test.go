@@ -40,7 +40,7 @@ func TestIsHelmV3(t *testing.T) {
 			require.NoError(t, err)
 			require.NotNil(t, r)
 			require.True(t, r.Ok)
-			require.Equal(t, Helm3Reason, r.Reason)
+			require.Equal(t, Helm3Reason, r.Reason[0])
 		})
 	}
 
@@ -55,7 +55,7 @@ func TestIsHelmV3(t *testing.T) {
 			require.NoError(t, err)
 			require.NotNil(t, r)
 			require.False(t, r.Ok)
-			require.Equal(t, NotHelm3Reason, r.Reason)
+			require.Equal(t, NotHelm3Reason, r.Reason[0])
 		})
 	}
 }
@@ -77,7 +77,7 @@ func TestHasReadme(t *testing.T) {
 			require.NoError(t, err)
 			require.NotNil(t, r)
 			require.True(t, r.Ok)
-			require.Equal(t, ReadmeExist, r.Reason)
+			require.Equal(t, ReadmeExist, r.Reason[0])
 		})
 	}
 
@@ -92,7 +92,7 @@ func TestHasReadme(t *testing.T) {
 			require.NoError(t, err)
 			require.NotNil(t, r)
 			require.False(t, r.Ok)
-			require.Equal(t, ReadmeDoesNotExist, r.Reason)
+			require.Equal(t, ReadmeDoesNotExist, r.Reason[0])
 		})
 	}
 }
@@ -114,7 +114,7 @@ func TestContainsTest(t *testing.T) {
 			require.NoError(t, err)
 			require.NotNil(t, r)
 			require.True(t, r.Ok)
-			require.Equal(t, ChartTestFilesExist, r.Reason)
+			require.Equal(t, ChartTestFilesExist, r.Reason[0])
 		})
 	}
 
@@ -129,7 +129,7 @@ func TestContainsTest(t *testing.T) {
 			require.NoError(t, err)
 			require.NotNil(t, r)
 			require.False(t, r.Ok)
-			require.Equal(t, ChartTestFilesDoesNotExist, r.Reason)
+			require.Equal(t, ChartTestFilesDoesNotExist, r.Reason[0])
 		})
 	}
 }
@@ -151,7 +151,7 @@ func TestHasValuesSchema(t *testing.T) {
 			require.NoError(t, err)
 			require.NotNil(t, r)
 			require.True(t, r.Ok)
-			require.Equal(t, ValuesSchemaFileExist, r.Reason)
+			require.Equal(t, ValuesSchemaFileExist, r.Reason[0])
 		})
 	}
 
@@ -166,7 +166,7 @@ func TestHasValuesSchema(t *testing.T) {
 			require.NoError(t, err)
 			require.NotNil(t, r)
 			require.False(t, r.Ok)
-			require.Equal(t, ValuesSchemaFileDoesNotExist, r.Reason)
+			require.Equal(t, ValuesSchemaFileDoesNotExist, r.Reason[0])
 		})
 	}
 }
@@ -188,7 +188,7 @@ func TestHasValues(t *testing.T) {
 			require.NoError(t, err)
 			require.NotNil(t, r)
 			require.True(t, r.Ok)
-			require.Equal(t, ValuesFileExist, r.Reason)
+			require.Equal(t, ValuesFileExist, r.Reason[0])
 		})
 	}
 
@@ -203,7 +203,7 @@ func TestHasValues(t *testing.T) {
 			require.NoError(t, err)
 			require.NotNil(t, r)
 			require.False(t, r.Ok)
-			require.Equal(t, ValuesFileDoesNotExist, r.Reason)
+			require.Equal(t, ValuesFileDoesNotExist, r.Reason[0])
 		})
 	}
 }
@@ -225,7 +225,7 @@ func TestHasMinKubeVersion(t *testing.T) {
 			require.NoError(t, err)
 			require.NotNil(t, r)
 			require.True(t, r.Ok)
-			require.Equal(t, MinKuberVersionSpecified, r.Reason)
+			require.Equal(t, MinKuberVersionSpecified, r.Reason[0])
 		})
 	}
 
@@ -240,7 +240,7 @@ func TestHasMinKubeVersion(t *testing.T) {
 			require.NoError(t, err)
 			require.NotNil(t, r)
 			require.False(t, r.Ok)
-			require.Equal(t, MinKuberVersionNotSpecified, r.Reason)
+			require.Equal(t, MinKuberVersionNotSpecified, r.Reason[0])
 		})
 	}
 
@@ -263,7 +263,7 @@ func TestNotContainCRDs(t *testing.T) {
 			require.NoError(t, err)
 			require.NotNil(t, r)
 			require.True(t, r.Ok)
-			require.Equal(t, ChartDoesNotContainCRDs, r.Reason)
+			require.Equal(t, ChartDoesNotContainCRDs, r.Reason[0])
 		})
 	}
 
@@ -278,7 +278,7 @@ func TestNotContainCRDs(t *testing.T) {
 			require.NoError(t, err)
 			require.NotNil(t, r)
 			require.False(t, r.Ok)
-			require.Equal(t, ChartContainCRDs, r.Reason)
+			require.Equal(t, ChartContainCRDs, r.Reason[0])
 		})
 	}
 }
@@ -300,7 +300,7 @@ func TestNotContainCSIObjects(t *testing.T) {
 			require.NoError(t, err)
 			require.NotNil(t, r)
 			require.True(t, r.Ok)
-			require.Equal(t, CSIObjectsDoesNotExist, r.Reason)
+			require.Equal(t, CSIObjectsDoesNotExist, r.Reason[0])
 		})
 	}
 
@@ -315,7 +315,7 @@ func TestNotContainCSIObjects(t *testing.T) {
 			require.NoError(t, err)
 			require.NotNil(t, r)
 			require.False(t, r.Ok)
-			require.Equal(t, CSIObjectsExist, r.Reason)
+			require.Equal(t, CSIObjectsExist, r.Reason[0])
 		})
 	}
 }
@@ -337,7 +337,7 @@ func TestHelmLint(t *testing.T) {
 			require.NoError(t, err)
 			require.NotNil(t, r)
 			require.True(t, r.Ok)
-			require.Equal(t, HelmLintSuccessful, r.Reason)
+			require.Equal(t, HelmLintSuccessful, r.Reason[0])
 		})
 	}
 
@@ -352,8 +352,36 @@ func TestHelmLint(t *testing.T) {
 			require.NoError(t, err)
 			require.NotNil(t, r)
 			require.False(t, r.Ok)
-			require.Contains(t, r.Reason, HelmLintHasFailedPrefix)
+			require.Contains(t, r.Reason[0], HelmLintHasFailedPrefix)
 		})
 	}
 
+}
+
+func TestImageCertify(t *testing.T) {
+
+	type testCase struct {
+		description string
+		uri         string
+		numErrors   int
+	}
+
+	negativeTestCases := []testCase{
+		{description: "chart-0.1.0-v3.valid.tgz check images fails", uri: "chart-0.1.0-v3.valid.tgz", numErrors: 2},
+		{description: "Helm check images fails", uri: "chart-0.1.0-v3.with-crd.tgz", numErrors: 2},
+		{description: "Helm check images fails", uri: "chart-0.1.0-v3.with-csi.tgz", numErrors: 1},
+	}
+
+	for _, tc := range negativeTestCases {
+		t.Run(tc.description, func(t *testing.T) {
+			config := viper.New()
+			r, err := ImagesAreCertified(tc.uri, config)
+			require.NoError(t, err)
+			require.NotNil(t, r)
+			require.False(t, r.Ok)
+			for i := 0; i < tc.numErrors; i++ {
+				require.Contains(t, r.Reason[i], ImageNotCertified)
+			}
+		})
+	}
 }

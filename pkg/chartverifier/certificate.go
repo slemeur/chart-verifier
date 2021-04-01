@@ -55,8 +55,8 @@ type certificate struct {
 type checkResultMap map[string]checkResult
 
 type checkResult struct {
-	Ok     bool   `json:"ok" yaml:"ok"`
-	Reason string `json:"reason" yaml:"reason"`
+	Ok     bool     `json:"ok" yaml:"ok"`
+	Reason []string `json:"reason" yaml:"reason"`
 }
 
 func newCertificate(name, version, chartUri, toolVersion string, ok bool, resultMap checkResultMap) Certificate {
@@ -83,8 +83,10 @@ func (c *certificate) String() string {
 
 	for k, v := range c.CheckResultMap {
 		report += k + ":\n" +
-			"\tok: " + strconv.FormatBool(v.Ok) + "\n" +
-			"\treason: " + v.Reason + "\n"
+			"\tok: " + strconv.FormatBool(v.Ok) + "\n"
+		for _, reason := range v.Reason {
+			report += "\treason: " + reason + "\n"
+		}
 	}
 
 	return report

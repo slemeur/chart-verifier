@@ -162,7 +162,7 @@ func TestCertify(t *testing.T) {
 			"results": map[string]interface{}{
 				"is-helm-v3": map[string]interface{}{
 					"ok":     true,
-					"reason": checks.Helm3Reason,
+					"reason": []interface{}{checks.Helm3Reason},
 				},
 			},
 		}
@@ -204,7 +204,7 @@ func TestCertify(t *testing.T) {
 			"results": map[string]interface{}{
 				"is-helm-v3": map[string]interface{}{
 					"ok":     true,
-					"reason": checks.Helm3Reason,
+					"reason": []interface{}{checks.Helm3Reason},
 				},
 			},
 		}

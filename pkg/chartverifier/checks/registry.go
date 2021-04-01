@@ -23,7 +23,7 @@ type Result struct {
 	Ok bool
 	// Reason for the result value.  This is a message indicating
 	// the reason for the value of Ok became true or false.
-	Reason string
+	Reason []string
 }
 
 type CheckFunc func(uri string, config *viper.Viper) (Result, error)
@@ -56,4 +56,25 @@ func (r *defaultRegistry) Get(name string) (CheckFunc, bool) {
 func (r *defaultRegistry) Add(name string, checkFunc CheckFunc) Registry {
 	(*r)[name] = checkFunc
 	return r
+}
+
+func NewResult(outcome bool, reason string) Result {
+	result := Result{}
+	result.Ok = outcome
+	if len(reason) > 0 {
+		result.Reason = []string{reason}
+	}
+	return result
+}
+
+func (r *Result) SetResult(outcome bool, reason string) Result {
+	r.Ok = outcome
+	r.Reason = []string{reason}
+	return *r
+}
+
+func (r *Result) AddResult(outcome bool, reason string) Result {
+	r.Ok = r.Ok && outcome
+	r.Reason = append(r.Reason, reason)
+	return *r
 }
