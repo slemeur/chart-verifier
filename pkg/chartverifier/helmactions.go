@@ -25,6 +25,7 @@ import (
 	kubefake "helm.sh/helm/v3/pkg/kube/fake"
 	"helm.sh/helm/v3/pkg/storage"
 	"helm.sh/helm/v3/pkg/storage/driver"
+	//"helm.sh/helm/v3/pkg/cli/values"
 
 	"github.com/redhat-certification/chart-verifier/pkg/helm/actions"
 )
@@ -58,4 +59,23 @@ func getImages(chartUri string) ([]string, error) {
 	}
 
 	return images, err
+}
+
+func InstallAndTestChart(charturi, chartName string) (string, error) {
+	var err error
+	var os_version string
+
+	namespace := "TestNameSpace"
+	actionConfig := new(action.Configuration)
+	//valueOpts := &values.Options{}
+
+	release, installErr := actions.InstallChart(namespace, charturi, chartName, nil, actionConfig)
+
+	if installErr != nil {
+		err = installErr
+	} else {
+		_, err = actions.RunReleaseTesting(release.Name, namespace, actionConfig)
+	}
+
+	return os_version, err
 }

@@ -189,7 +189,6 @@ func IsChartNotFound(err error) bool {
 
 func getImages(chartUri string) ([]string, error) {
 
-	fmt.Println("RenderManifests")
 	actionConfig := &action.Configuration{
 		Releases:     nil,
 		KubeClient:   &kubefake.PrintingKubeClient{Out: ioutil.Discard},
@@ -201,7 +200,7 @@ func getImages(chartUri string) ([]string, error) {
 	actionConfig.Releases = storage.Init(mem)
 
 	var m map[string]interface{}
-	var images []string
+	imagesMap := make(map[string]bool)
 
 	txt, err := actions.RenderManifests("testRelease", chartUri, m, actionConfig)
 	if err != nil {
@@ -213,9 +212,18 @@ func getImages(chartUri string) ([]string, error) {
 			line := scanner.Text()
 			line = strings.ReplaceAll(line, " ", "")
 			if strings.HasPrefix(line, "image:") {
-				images = append(images, strings.Trim(strings.TrimLeft(line, "image:"), "\""))
+				image := strings.Trim(strings.TrimLeft(line, "image:"), "\"")
+				if !imagesMap[image] {
+					imagesMap[image] = true
+				}
+
 			}
 		}
+	}
+
+	images := make([]string, 0, len(imagesMap))
+	for image := range imagesMap {
+		images = append(images, image)
 	}
 
 	return images, err

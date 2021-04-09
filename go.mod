@@ -10,5 +10,8 @@ require (
 	github.com/stretchr/testify v1.6.1
 	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c
 	helm.sh/helm/v3 v3.5.1
+	k8s.io/cli-runtime v0.20.1
+	k8s.io/client-go v0.20.1
+	k8s.io/klog v1.0.0
 	rsc.io/letsencrypt v0.0.3 // indirect
 )

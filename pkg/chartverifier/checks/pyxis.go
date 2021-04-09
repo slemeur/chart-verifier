@@ -53,7 +53,8 @@ type RegistryRepository struct {
 }
 
 type RepositoryTag struct {
-	Name string `json:"name"`
+	Digest string `json:"manifest_schema1_digest"`
+	Name   string `json:"name"`
 }
 
 func getImageRegistries(repository string) ([]string, error) {
@@ -145,4 +146,96 @@ func checkImageInRegistry(repository string, version string, registry string) (b
 	}
 
 	return found, err
+}
+
+func findTags(registry string) (int, int, []string) {
+
+	requestFilter := fmt.Sprintf("page_size=500&filter=registry==%s", registry)
+	requestUrl := fmt.Sprintf("%s?%s", pyxisBaseUrl, requestFilter)
+
+	req, _ := http.NewRequest("GET", requestUrl, nil)
+	req.Header.Set("X-API-KEY", "RedHatChartVerifier")
+	client := &http.Client{}
+	resp, _ := client.Do(req)
+
+	var repositories []string
+	numRepos := 0
+	numTags := 0
+
+	if resp.StatusCode == 200 {
+		defer resp.Body.Close()
+		body, _ := ioutil.ReadAll(resp.Body)
+		var repositoriesBody RepositoriesBody
+		json.Unmarshal(body, &repositoriesBody)
+
+		if len(repositoriesBody.PyxisRepositories) > 0 {
+			for _, repo := range repositoriesBody.PyxisRepositories {
+				repositories = append(repositories, repo.Repository)
+			}
+		} else {
+			//fmt.Println("No respositories found")
+		}
+	} else {
+		fmt.Println(fmt.Sprintf("Bad response code from Pyxis: %d : %s", resp.StatusCode, requestUrl))
+	}
+
+	var candidates []string
+	for _, repository := range repositories {
+		requestFilter := fmt.Sprintf("filter=repositories=em=(repository==%s;registry==%s)", repository, registry)
+		requestUrl := fmt.Sprintf("%s/registry/%s/repository/%s/images?%s", pyxisBaseUrl, registry, repository, requestFilter)
+		req, _ := http.NewRequest("GET", requestUrl, nil)
+		req.Header.Set("X-API-KEY", "RedHatChartVerifier")
+		client := &http.Client{}
+		resp, err := client.Do(req)
+
+		numRepos++
+
+		if err == nil {
+			if resp.StatusCode == 200 {
+				defer resp.Body.Close()
+				body, _ := ioutil.ReadAll(resp.Body)
+				var registriesBody RegistriesBody
+				json.Unmarshal(body, &registriesBody)
+
+				if len(registriesBody.PyxisRegistries) > 0 {
+					var tags []string
+					for _, reg := range registriesBody.PyxisRegistries {
+						for _, repo := range reg.Repositories {
+							if repo.Repository == repository && repo.Registry == registry {
+								for _, tag := range repo.Tags {
+									tags = append(tags, tag.Name)
+									numTags++
+									if len(tag.Digest) > 0 {
+										candidates = append(candidates, fmt.Sprintf("registry : %s, repository : %s, tag : %s, digest : %s", registry, repository, tag.Name, tag.Digest))
+										//fmt.Println(fmt.Sprintf("manifest_schema1_digest : %s", tag.Digest))
+									}
+								}
+							}
+						}
+					}
+					//fmt.Println(fmt.Sprintf("repo : %s",repository))
+					for _, tag := range tags {
+						//fmt.Println(fmt.Sprintf("    tag : %s",tag))
+						if !strings.ContainsAny(tag, ".-") && len(tag) > 12 {
+							candidates = append(candidates, fmt.Sprintf("registry : %s, repository : %s, tag : %s", registry, repository, tag))
+						} else if strings.Contains(tag, "sha256") {
+							candidates = append(candidates, fmt.Sprintf("registry : %s, repository : %s, tag : %s", registry, repository, tag))
+						}
+						//fmt.Println(fmt.Sprintf("    tag : %s",tag))
+					}
+
+				} else {
+					fmt.Println(fmt.Sprintf("repo : %s, Nothing found", repository))
+				}
+			} else {
+				fmt.Println(fmt.Sprintf("Bad response code %d from pyxis request : %s", resp.StatusCode, requestUrl))
+			}
+		}
+	}
+
+	for _, candidate := range candidates {
+		fmt.Println(fmt.Sprintf("Candidate : %s ", candidate))
+	}
+
+	return numRepos, numTags, candidates
 }

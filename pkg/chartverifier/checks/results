@@ -1,0 +1,473 @@
+RenderManifests error : execution error at (aad-pod-identity/templates/identities.yaml:11:17): .Values.azureIdentity.resourceID is required!
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/aad-pod-identity/aad-pod-identity-1.1.3-b685.tgz
+     Reason : Failed to certify images : Failed to get images : execution error at (aad-pod-identity/templates/identities.yaml:11:17): .Values.azureIdentity.resourceID is required!
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/autoscale-demo/autoscale-demo-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : /:latest : No registry specified
+     Reason : Image is not Red Hat certified : /:latest : Respository not found: /
+RenderManifests error : template: embedded-postgres-server/templates/statefulSet.yaml:4:18: executing "embedded-postgres-server/templates/statefulSet.yaml" at <.Values.db.host>: nil pointer evaluating interface {}.host
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/cdp-embedded-db/cdp-embedded-db-1.1.0-b1574.tgz
+     Reason : Failed to certify images : Failed to get images : template: embedded-postgres-server/templates/statefulSet.yaml:4:18: executing "embedded-postgres-server/templates/statefulSet.yaml" at <.Values.db.host>: nil pointer evaluating interface {}.host
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/cdp-embedded-vault/cdp-embedded-vault-1.1.0-b1574.tgz
+     Reason : Image is not Red Hat certified : curlimages/curl:7.70.0 : No registry specified
+     Reason : Image is not Red Hat certified : curlimages/curl:7.70.0 : Respository not found: curlimages/curl
+
+
+WINNNER!!!
+ true  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/cdp-monitoring-metadata/cdp-monitoring-metadata-1.1.3-b685.tgz
+     Reason : No images to certify
+
+
+
+
+WINNNER!!!
+ true  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/cdp-network-policy/cdp-network-policy-1.1.0-b1574.tgz
+     Reason : No images to certify
+
+
+
+
+WINNNER!!!
+ true  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/cdp-reloader/cdp-reloader-1.1.0-b1574.tgz
+     Reason : No images to certify
+
+
+RenderManifests error : template: cdsw-app/templates/internal-secrets.yaml:25:30: executing "cdsw-app/templates/internal-secrets.yaml" at <b64enc>: invalid value; expected string
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/cdsw-app/cdsw-app-2.0.13-b133.tgz
+     Reason : Failed to certify images : Failed to get images : template: cdsw-app/templates/internal-secrets.yaml:25:30: executing "cdsw-app/templates/internal-secrets.yaml" at <b64enc>: invalid value; expected string
+
+
+WINNNER!!!
+ true  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/cdsw-clusterwide-resources/cdsw-clusterwide-resources-2.0.13-b133.tgz
+     Reason : No images to certify
+
+
+RenderManifests error : template: cdsw-combined/templates/internal-secrets.yaml:25:30: executing "cdsw-combined/templates/internal-secrets.yaml" at <b64enc>: invalid value; expected string
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/cdsw-combined/cdsw-combined-2.0.13-b133.tgz
+     Reason : Failed to certify images : Failed to get images : template: cdsw-combined/templates/internal-secrets.yaml:25:30: executing "cdsw-combined/templates/internal-secrets.yaml" at <b64enc>: invalid value; expected string
+RenderManifests error : YAML parse error on cdsw-compute/templates/image-puller.yaml: error converting YAML to JSON: yaml: line 48: mapping values are not allowed in this context
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/cdsw-compute/cdsw-compute-2.0.13-b133.tgz
+     Reason : Failed to certify images : Failed to get images : YAML parse error on cdsw-compute/templates/image-puller.yaml: error converting YAML to JSON: yaml: line 48: mapping values are not allowed in this context
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/cdsw-dev-services/cdsw-dev-services-2.0.13-b133.tgz
+     Reason : Image is not Red Hat certified : digiplant/fake-smtp : No registry specified
+     Reason : Image is not Red Hat certified : digiplant/fake-smtp : Respository not found: digiplant/fake-smtp
+     Reason : Image is not Red Hat certified : /cdsw/shibboleth-idp:latest : No registry specified
+     Reason : Image is not Red Hat certified : /cdsw/shibboleth-idp:latest : Respository not found: /cdsw/shibboleth-idp
+
+
+WINNNER!!!
+ true  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/cluster-autoscaler/cluster-autoscaler-1.1.3-b685.tgz
+     Reason : No images to certify
+
+
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/cluster-overprovisioner/cluster-overprovisioner-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : /:3.1 : No registry specified
+     Reason : Image is not Red Hat certified : /:3.1 : Respository not found: /
+     Reason : Image is not Red Hat certified : /:3.1 : No registry specified
+     Reason : Image is not Red Hat certified : /:3.1 : Respository not found: /
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/compute-operator/compute-operator-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : /: : No registry specified
+     Reason : Image is not Red Hat certified : /: : Respository not found: /
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/cpx-liftie/cpx-liftie-1.2.1-b2.tgz
+     Reason : Image is not Red Hat certified : hortonworks/liftie:1.0.0-SNAPSHOT : No registry specified
+     Reason : Image is not Red Hat certified : hortonworks/liftie:1.0.0-SNAPSHOT : Respository not found: hortonworks/liftie
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/das-event-processor/das-event-processor-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : / : No registry specified
+     Reason : Image is not Red Hat certified : / : Respository not found: /
+     Reason : Image is not Red Hat certified : /:latest : No registry specified
+     Reason : Image is not Red Hat certified : /:latest : Respository not found: /
+     Reason : Image is not Red Hat certified : / : No registry specified
+     Reason : Image is not Red Hat certified : / : Respository not found: /
+     Reason : Image is not Red Hat certified : latest : No registry specified
+     Reason : Image is not Red Hat certified : latest : Respository not found: latest
+     Reason : Image is not Red Hat certified : cloudera_thirdparty/busybox : No registry specified
+     Reason : Image is not Red Hat certified : cloudera_thirdparty/busybox : Respository not found: cloudera_thirdparty/busybox
+     Reason : Image is not Red Hat certified : /:9.6.7-alpine : No registry specified
+     Reason : Image is not Red Hat certified : /:9.6.7-alpine : Respository not found: /
+     Reason : Image is not Red Hat certified : / : No registry specified
+     Reason : Image is not Red Hat certified : / : Respository not found: /
+     Reason : Image is not Red Hat certified : latest : No registry specified
+     Reason : Image is not Red Hat certified : latest : Respository not found: latest
+     Reason : Image is not Red Hat certified : cloudera_thirdparty/busybox : No registry specified
+     Reason : Image is not Red Hat certified : cloudera_thirdparty/busybox : Respository not found: cloudera_thirdparty/busybox
+     Reason : Image is not Red Hat certified : /:9.6.7-alpine : No registry specified
+     Reason : Image is not Red Hat certified : /:9.6.7-alpine : Respository not found: /
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/das-webapp/das-webapp-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : / : No registry specified
+     Reason : Image is not Red Hat certified : / : Respository not found: /
+     Reason : Image is not Red Hat certified : / : No registry specified
+     Reason : Image is not Red Hat certified : / : Respository not found: /
+     Reason : Image is not Red Hat certified : latest : No registry specified
+     Reason : Image is not Red Hat certified : latest : Respository not found: latest
+     Reason : Image is not Red Hat certified : /:latest : No registry specified
+     Reason : Image is not Red Hat certified : /:latest : Respository not found: /
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/databus-producer/databus-producer-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : /: : No registry specified
+     Reason : Image is not Red Hat certified : /: : Respository not found: /
+RenderManifests error : YAML parse error on dpsgateway/templates/dps-gateway.yaml: error converting YAML to JSON: yaml: line 25: mapping values are not allowed in this context
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/dpsgateway/dpsgateway-1.1.0-b1574.tgz
+     Reason : Failed to certify images : Failed to get images : YAML parse error on dpsgateway/templates/dps-gateway.yaml: error converting YAML to JSON: yaml: line 25: mapping values are not allowed in this context
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/druid-broker/druid-broker-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : latest : No registry specified
+     Reason : Image is not Red Hat certified : latest : Respository not found: latest
+     Reason : Image is not Red Hat certified : /:latest : No registry specified
+     Reason : Image is not Red Hat certified : /:latest : Respository not found: /
+
+
+WINNNER!!!
+ true  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/druid-common/druid-common-1.1.3-b685.tgz
+     Reason : No images to certify
+
+
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/druid-coordinator/druid-coordinator-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : latest : No registry specified
+     Reason : Image is not Red Hat certified : latest : Respository not found: latest
+     Reason : Image is not Red Hat certified : /:latest : No registry specified
+     Reason : Image is not Red Hat certified : /:latest : Respository not found: /
+     Reason : Image is not Red Hat certified : / : No registry specified
+     Reason : Image is not Red Hat certified : / : Respository not found: /
+     Reason : Image is not Red Hat certified : / : No registry specified
+     Reason : Image is not Red Hat certified : / : Respository not found: /
+     Reason : Image is not Red Hat certified : /: : No registry specified
+     Reason : Image is not Red Hat certified : /: : Respository not found: /
+     Reason : Image is not Red Hat certified : latest : No registry specified
+     Reason : Image is not Red Hat certified : latest : Respository not found: latest
+     Reason : Image is not Red Hat certified : /:latest : No registry specified
+     Reason : Image is not Red Hat certified : /:latest : Respository not found: /
+     Reason : Image is not Red Hat certified : cloudera_thirdparty/busybox : No registry specified
+     Reason : Image is not Red Hat certified : cloudera_thirdparty/busybox : Respository not found: cloudera_thirdparty/busybox
+     Reason : Image is not Red Hat certified : /:9.6.7-alpine : No registry specified
+     Reason : Image is not Red Hat certified : /:9.6.7-alpine : Respository not found: /
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/druid-historical/druid-historical-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : latest : No registry specified
+     Reason : Image is not Red Hat certified : latest : Respository not found: latest
+     Reason : Image is not Red Hat certified : /:latest : No registry specified
+     Reason : Image is not Red Hat certified : /:latest : Respository not found: /
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/druid-historical-cold/druid-historical-cold-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : latest : No registry specified
+     Reason : Image is not Red Hat certified : latest : Respository not found: latest
+     Reason : Image is not Red Hat certified : /:latest : No registry specified
+     Reason : Image is not Red Hat certified : /:latest : Respository not found: /
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/druid-middlemanager/druid-middlemanager-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : latest : No registry specified
+     Reason : Image is not Red Hat certified : latest : Respository not found: latest
+     Reason : Image is not Red Hat certified : /:latest : No registry specified
+     Reason : Image is not Red Hat certified : /:latest : Respository not found: /
+
+
+WINNNER!!!
+ true  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/druid-peon/druid-peon-1.1.3-b685.tgz
+     Reason : No images to certify
+
+
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/druid-router/druid-router-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : latest : No registry specified
+     Reason : Image is not Red Hat certified : latest : Respository not found: latest
+     Reason : Image is not Red Hat certified : /:latest : No registry specified
+     Reason : Image is not Red Hat certified : /:latest : Respository not found: /
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/dwx/dwx-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : hortonworks/migration-tool:latest : No registry specified
+     Reason : Image is not Red Hat certified : hortonworks/migration-tool:latest : Respository not found: hortonworks/migration-tool
+     Reason : Image is not Red Hat certified : cloudera/dwx: : No registry specified
+     Reason : Image is not Red Hat certified : cloudera/dwx: : Respository not found: cloudera/dwx
+     Reason : Image is not Red Hat certified : cloudera/dwx: : No registry specified
+     Reason : Image is not Red Hat certified : cloudera/dwx: : Respository not found: cloudera/dwx
+
+
+WINNNER!!!
+ true  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/dwx-common/dwx-common-1.1.3-b685.tgz
+     Reason : No images to certify
+
+
+
+
+WINNNER!!!
+ true  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/ebs-storage-class/ebs-storage-class-1.1.3-b685.tgz
+     Reason : No images to certify
+
+
+
+
+WINNNER!!!
+ true  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/efs-provisioner/efs-provisioner-1.1.3-b685.tgz
+     Reason : No images to certify
+
+
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/fluentd/fluentd-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : /: : No registry specified
+     Reason : Image is not Red Hat certified : /: : Respository not found: /
+
+
+WINNNER!!!
+ true  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/hive-user-role/hive-user-role-1.1.3-b685.tgz
+     Reason : No images to certify
+
+
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/hiveserver2/hiveserver2-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : /:latest : No registry specified
+     Reason : Image is not Red Hat certified : /:latest : Respository not found: /
+     Reason : Image is not Red Hat certified : latest : No registry specified
+     Reason : Image is not Red Hat certified : latest : Respository not found: latest
+     Reason : Image is not Red Hat certified : /:latest : No registry specified
+     Reason : Image is not Red Hat certified : /:latest : Respository not found: /
+RenderManifests error : YAML parse error on hue/templates/statefulset.yaml: error converting YAML to JSON: yaml: line 46: mapping values are not allowed in this context
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/hue/hue-1.1.3-b685.tgz
+     Reason : Failed to certify images : Failed to get images : YAML parse error on hue/templates/statefulset.yaml: error converting YAML to JSON: yaml: line 46: mapping values are not allowed in this context
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/impala-autoscaler/impala-autoscaler-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : /: : No registry specified
+     Reason : Image is not Red Hat certified : /: : Respository not found: /
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/impala-catalogd/impala-catalogd-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : latest : No registry specified
+     Reason : Image is not Red Hat certified : latest : Respository not found: latest
+     Reason : Image is not Red Hat certified : /: : No registry specified
+     Reason : Image is not Red Hat certified : /: : Respository not found: /
+     Reason : Image is not Red Hat certified : /:latest : No registry specified
+     Reason : Image is not Red Hat certified : /:latest : Respository not found: /
+     Reason : Image is not Red Hat certified : / : No registry specified
+     Reason : Image is not Red Hat certified : / : Respository not found: /
+     Reason : Image is not Red Hat certified : / : No registry specified
+     Reason : Image is not Red Hat certified : / : Respository not found: /
+     Reason : Image is not Red Hat certified : / : No registry specified
+     Reason : Image is not Red Hat certified : / : Respository not found: /
+     Reason : Image is not Red Hat certified : / : No registry specified
+     Reason : Image is not Red Hat certified : / : Respository not found: /
+     Reason : Image is not Red Hat certified : /: : No registry specified
+     Reason : Image is not Red Hat certified : /: : Respository not found: /
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/impala-coordinator/impala-coordinator-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : latest : No registry specified
+     Reason : Image is not Red Hat certified : latest : Respository not found: latest
+     Reason : Image is not Red Hat certified : / : No registry specified
+     Reason : Image is not Red Hat certified : / : Respository not found: /
+     Reason : Image is not Red Hat certified : / : No registry specified
+     Reason : Image is not Red Hat certified : / : Respository not found: /
+     Reason : Image is not Red Hat certified : /:latest : No registry specified
+     Reason : Image is not Red Hat certified : /:latest : Respository not found: /
+     Reason : Image is not Red Hat certified : /:latest : No registry specified
+     Reason : Image is not Red Hat certified : /:latest : Respository not found: /
+     Reason : Image is not Red Hat certified : /:latest : No registry specified
+     Reason : Image is not Red Hat certified : /:latest : Respository not found: /
+     Reason : Image is not Red Hat certified : /:0.5 : No registry specified
+     Reason : Image is not Red Hat certified : /:0.5 : Respository not found: /
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/impala-executor/impala-executor-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : / : No registry specified
+     Reason : Image is not Red Hat certified : / : Respository not found: /
+     Reason : Image is not Red Hat certified : / : No registry specified
+     Reason : Image is not Red Hat certified : / : Respository not found: /
+     Reason : Image is not Red Hat certified : /: : No registry specified
+     Reason : Image is not Red Hat certified : /: : Respository not found: /
+     Reason : Image is not Red Hat certified : /: : No registry specified
+     Reason : Image is not Red Hat certified : /: : Respository not found: /
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/impala-statestored/impala-statestored-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : /: : No registry specified
+     Reason : Image is not Red Hat certified : /: : Respository not found: /
+     Reason : Image is not Red Hat certified : /: : No registry specified
+     Reason : Image is not Red Hat certified : /: : Respository not found: /
+RenderManifests error : YAML parse error on istio/charts/grafana/templates/deployment.yaml: error converting YAML to JSON: yaml: line 31: mapping values are not allowed in this context
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/istio/istio-1.1.3-b685.tgz
+     Reason : Failed to certify images : Failed to get images : YAML parse error on istio/charts/grafana/templates/deployment.yaml: error converting YAML to JSON: yaml: line 31: mapping values are not allowed in this context
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/istio-init/istio-init-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : //kubectl:1.1.17 : No registry specified
+     Reason : Image is not Red Hat certified : //kubectl:1.1.17 : Respository not found: //kubectl
+     Reason : Image is not Red Hat certified : //kubectl:1.1.17 : No registry specified
+     Reason : Image is not Red Hat certified : //kubectl:1.1.17 : Respository not found: //kubectl
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/k8s-spot-termination-handler/k8s-spot-termination-handler-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : /cloudera_thirdparty/kubeaws/kube-spot-termination-notice-handler:1.13.7-1 : No registry specified
+     Reason : Image is not Red Hat certified : /cloudera_thirdparty/kubeaws/kube-spot-termination-notice-handler:1.13.7-1 : Respository not found: /cloudera_thirdparty/kubeaws/kube-spot-termination-notice-handler
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/kube-state-metrics/kube-state-metrics-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : /:v1.8.0 : No registry specified
+     Reason : Image is not Red Hat certified : /:v1.8.0 : Respository not found: /
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/ldap/ldap-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : /:1.0.0-1 : No registry specified
+     Reason : Image is not Red Hat certified : /:1.0.0-1 : Respository not found: /
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/log-router/log-router-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : /: : No registry specified
+     Reason : Image is not Red Hat certified : /: : Respository not found: /
+     Reason : Image is not Red Hat certified : /: : No registry specified
+     Reason : Image is not Red Hat certified : /: : Respository not found: /
+     Reason : Image is not Red Hat certified : /:1.0.0-b404 : No registry specified
+     Reason : Image is not Red Hat certified : /:1.0.0-b404 : Respository not found: /
+     Reason : Image is not Red Hat certified : /:v1.12.0 : No registry specified
+     Reason : Image is not Red Hat certified : /:v1.12.0 : Respository not found: /
+     Reason : Image is not Red Hat certified : /:v1.12.0 : No registry specified
+     Reason : Image is not Red Hat certified : /:v1.12.0 : Respository not found: /
+     Reason : Image is not Red Hat certified : /:v1.12.0 : No registry specified
+     Reason : Image is not Red Hat certified : /:v1.12.0 : Respository not found: /
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/loki/loki-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : /:v1.3.0 : No registry specified
+     Reason : Image is not Red Hat certified : /:v1.3.0 : Respository not found: /
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/metastore/metastore-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : / : No registry specified
+     Reason : Image is not Red Hat certified : / : Respository not found: /
+     Reason : Image is not Red Hat certified : latest : No registry specified
+     Reason : Image is not Red Hat certified : latest : Respository not found: latest
+     Reason : Image is not Red Hat certified : /:latest : No registry specified
+     Reason : Image is not Red Hat certified : /:latest : Respository not found: /
+     Reason : Image is not Red Hat certified : /:latest : No registry specified
+     Reason : Image is not Red Hat certified : /:latest : Respository not found: /
+     Reason : Image is not Red Hat certified : /:latest : No registry specified
+     Reason : Image is not Red Hat certified : /:latest : Respository not found: /
+     Reason : Image is not Red Hat certified : / : No registry specified
+     Reason : Image is not Red Hat certified : / : Respository not found: /
+     Reason : Image is not Red Hat certified : /:latest : No registry specified
+     Reason : Image is not Red Hat certified : /:latest : Respository not found: /
+     Reason : Image is not Red Hat certified : / : No registry specified
+     Reason : Image is not Red Hat certified : / : Respository not found: /
+     Reason : Image is not Red Hat certified : cloudera_thirdparty/busybox : No registry specified
+     Reason : Image is not Red Hat certified : cloudera_thirdparty/busybox : Respository not found: cloudera_thirdparty/busybox
+     Reason : Image is not Red Hat certified : /:9.6.7-alpine : No registry specified
+     Reason : Image is not Red Hat certified : /:9.6.7-alpine : Respository not found: /
+     Reason : Image is not Red Hat certified : / : No registry specified
+     Reason : Image is not Red Hat certified : / : Respository not found: /
+     Reason : Image is not Red Hat certified : latest : No registry specified
+     Reason : Image is not Red Hat certified : latest : Respository not found: latest
+     Reason : Image is not Red Hat certified : cloudera_thirdparty/busybox : No registry specified
+     Reason : Image is not Red Hat certified : cloudera_thirdparty/busybox : Respository not found: cloudera_thirdparty/busybox
+     Reason : Image is not Red Hat certified : /:9.6.7-alpine : No registry specified
+     Reason : Image is not Red Hat certified : /:9.6.7-alpine : Respository not found: /
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/metrics-server/metrics-server-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : /:v0.3.2 : No registry specified
+     Reason : Image is not Red Hat certified : /:v0.3.2 : Respository not found: /
+     Reason : Image is not Red Hat certified :  : No registry specified
+     Reason : Image is not Red Hat certified :  : Bad response code from Pyxis: 503 : https://catalog.redhat.com/api/containers/v1/repositories?filter=repository==
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/mlx-control-plane-app/mlx-control-plane-app-1.13.0-b61.tgz
+     Reason : Image is not Red Hat certified : docker-private.infra.cloudera.com/cloudera/mlx-control-plane-app-health-poller:1.13.0-b61 : Registry not found: docker-private.infra.cloudera.com
+     Reason : Image is not Red Hat certified : docker-private.infra.cloudera.com/cloudera/mlx-control-plane-app:1.13.0-b61 : Registry not found: docker-private.infra.cloudera.com
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/monitoring-app/monitoring-app-1.1.0-b135.tgz
+     Reason : Image is not Red Hat certified : docker-private.infra.cloudera.com/cloudera/monitoring-app:1.1.0-b135 : Registry not found: docker-private.infra.cloudera.com
+     Reason : Image is not Red Hat certified : docker-private.infra.cloudera.com/cloudera/monitoring-app:1.1.0-b135 : Registry not found: docker-private.infra.cloudera.com
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/nginx-ingress/nginx-ingress-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : /cloudera_thirdparty/kubernetes-ingress-controller/nginx-ingress-controller:0.30.0 : No registry specified
+     Reason : Image is not Red Hat certified : /cloudera_thirdparty/kubernetes-ingress-controller/nginx-ingress-controller:0.30.0 : Respository not found: /cloudera_thirdparty/kubernetes-ingress-controller/nginx-ingress-controller
+     Reason : Image is not Red Hat certified : /:1.5 : No registry specified
+     Reason : Image is not Red Hat certified : /:1.5 : Respository not found: /
+
+
+WINNNER!!!
+ true  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/postgres-external/postgres-external-1.1.3-b685.tgz
+     Reason : No images to certify
+
+
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/prometheus-adapter/prometheus-adapter-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : /:v0.4.1 : No registry specified
+     Reason : Image is not Red Hat certified : /:v0.4.1 : Respository not found: /
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/prometheus-standalone/prometheus-standalone-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : /:v2.12.0 : No registry specified
+     Reason : Image is not Red Hat certified : /:v2.12.0 : Respository not found: /
+
+
+WINNNER!!!
+ true  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/query-coordinator/query-coordinator-1.1.3-b685.tgz
+     Reason : No images to certify
+
+
+
+
+WINNNER!!!
+ true  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/query-executor/query-executor-1.1.3-b685.tgz
+     Reason : No images to certify
+
+
+
+
+WINNNER!!!
+ true  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/service-idler/service-idler-1.1.3-b685.tgz
+     Reason : No images to certify
+
+
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/standalone-compute-operator/standalone-compute-operator-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : /: : No registry specified
+     Reason : Image is not Red Hat certified : /: : Respository not found: /
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/superset/superset-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : /cloudera/superset:latest : No registry specified
+     Reason : Image is not Red Hat certified : /cloudera/superset:latest : Respository not found: /cloudera/superset
+     Reason : Image is not Red Hat certified : / : No registry specified
+     Reason : Image is not Red Hat certified : / : Respository not found: /
+     Reason : Image is not Red Hat certified : cloudera_thirdparty/busybox : No registry specified
+     Reason : Image is not Red Hat certified : cloudera_thirdparty/busybox : Respository not found: cloudera_thirdparty/busybox
+     Reason : Image is not Red Hat certified : /:9.6.7-alpine : No registry specified
+     Reason : Image is not Red Hat certified : /:9.6.7-alpine : Respository not found: /
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/thunderhead-cdp-private-authentication-console/thunderhead-cdp-private-authentication-console-1.1.0-b1035.tgz
+     Reason : Image is not Red Hat certified : thunderhead-cdp-private-authentication-console:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : No registry specified
+     Reason : Image is not Red Hat certified : thunderhead-cdp-private-authentication-console:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : Respository not found: thunderhead-cdp-private-authentication-console
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/thunderhead-cdp-private-commonconsole/thunderhead-cdp-private-commonconsole-1.1.0-b1035.tgz
+     Reason : Image is not Red Hat certified : thunderhead-cdp-private-commonconsole:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : No registry specified
+     Reason : Image is not Red Hat certified : thunderhead-cdp-private-commonconsole:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : Respository not found: thunderhead-cdp-private-commonconsole
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/thunderhead-cdp-private-environments-console/thunderhead-cdp-private-environments-console-1.1.0-b1035.tgz
+     Reason : Image is not Red Hat certified : thunderhead-cdp-private-environments-console:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : No registry specified
+     Reason : Image is not Red Hat certified : thunderhead-cdp-private-environments-console:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : Respository not found: thunderhead-cdp-private-environments-console
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/thunderhead-compute-api/thunderhead-compute-api-1.1.0-b1035.tgz
+     Reason : Image is not Red Hat certified : thunderhead-compute-api:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : No registry specified
+     Reason : Image is not Red Hat certified : thunderhead-compute-api:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : Respository not found: thunderhead-compute-api
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/thunderhead-console-authentication-service/thunderhead-console-authentication-service-1.1.0-b1035.tgz
+     Reason : Image is not Red Hat certified : thunderhead-console-authentication-service:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : No registry specified
+     Reason : Image is not Red Hat certified : thunderhead-console-authentication-service:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : Respository not found: thunderhead-console-authentication-service
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/thunderhead-consoleauthenticationcdp/thunderhead-consoleauthenticationcdp-1.1.0-b1035.tgz
+     Reason : Image is not Red Hat certified : thunderhead-consoleauthenticationcdp:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : No registry specified
+     Reason : Image is not Red Hat certified : thunderhead-consoleauthenticationcdp:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : Respository not found: thunderhead-consoleauthenticationcdp
+RenderManifests error : template: thunderhead-diagnostics-api/templates/fluent-aggregator.yaml:152:26: executing "thunderhead-diagnostics-api/templates/fluent-aggregator.yaml" at <.Values.fluentdImage.repository>: nil pointer evaluating interface {}.repository
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/thunderhead-diagnostics-api/thunderhead-diagnostics-api-1.1.0-b1035.tgz
+     Reason : Failed to certify images : Failed to get images : template: thunderhead-diagnostics-api/templates/fluent-aggregator.yaml:152:26: executing "thunderhead-diagnostics-api/templates/fluent-aggregator.yaml" at <.Values.fluentdImage.repository>: nil pointer evaluating interface {}.repository
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/thunderhead-dw-api/thunderhead-dw-api-1.1.0-b1035.tgz
+     Reason : Image is not Red Hat certified : thunderhead-dw-api:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : No registry specified
+     Reason : Image is not Red Hat certified : thunderhead-dw-api:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : Respository not found: thunderhead-dw-api
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/thunderhead-environment/thunderhead-environment-1.1.0-b1035.tgz
+     Reason : Image is not Red Hat certified : thunderhead-environment:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : No registry specified
+     Reason : Image is not Red Hat certified : thunderhead-environment:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : Respository not found: thunderhead-environment
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/thunderhead-environments2-api/thunderhead-environments2-api-1.1.0-b1035.tgz
+     Reason : Image is not Red Hat certified : thunderhead-environments2-api:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : No registry specified
+     Reason : Image is not Red Hat certified : thunderhead-environments2-api:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : Respository not found: thunderhead-environments2-api
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/thunderhead-iam-api/thunderhead-iam-api-1.1.0-b1035.tgz
+     Reason : Image is not Red Hat certified : thunderhead-iam-api:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : No registry specified
+     Reason : Image is not Red Hat certified : thunderhead-iam-api:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : Respository not found: thunderhead-iam-api
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/thunderhead-iam-console/thunderhead-iam-console-1.1.0-b1035.tgz
+     Reason : Image is not Red Hat certified : thunderhead-iam-console:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : No registry specified
+     Reason : Image is not Red Hat certified : thunderhead-iam-console:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : Respository not found: thunderhead-iam-console
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/thunderhead-kerberosmgmt-api/thunderhead-kerberosmgmt-api-1.1.0-b1035.tgz
+     Reason : Image is not Red Hat certified : thunderhead-kerberosmgmt-api:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : No registry specified
+     Reason : Image is not Red Hat certified : thunderhead-kerberosmgmt-api:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : Respository not found: thunderhead-kerberosmgmt-api
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/thunderhead-ml-api/thunderhead-ml-api-1.1.0-b1035.tgz
+     Reason : Image is not Red Hat certified : thunderhead-ml-api:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : No registry specified
+     Reason : Image is not Red Hat certified : thunderhead-ml-api:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : Respository not found: thunderhead-ml-api
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/thunderhead-resource-management-console/thunderhead-resource-management-console-1.1.0-b1035.tgz
+     Reason : Image is not Red Hat certified : thunderhead-resource-management-console:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : No registry specified
+     Reason : Image is not Red Hat certified : thunderhead-resource-management-console:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : Respository not found: thunderhead-resource-management-console
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/thunderhead-sdx2-api/thunderhead-sdx2-api-1.1.0-b1035.tgz
+     Reason : Image is not Red Hat certified : thunderhead-sdx2-api:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : No registry specified
+     Reason : Image is not Red Hat certified : thunderhead-sdx2-api:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : Respository not found: thunderhead-sdx2-api
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/thunderhead-servicediscoverysimple/thunderhead-servicediscoverysimple-1.1.0-b1035.tgz
+     Reason : Image is not Red Hat certified : thunderhead-servicediscoverysimple:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : No registry specified
+     Reason : Image is not Red Hat certified : thunderhead-servicediscoverysimple:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : Respository not found: thunderhead-servicediscoverysimple
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/thunderhead-usermanagement-private/thunderhead-usermanagement-private-1.1.0-b1035.tgz
+     Reason : Image is not Red Hat certified : thunderhead-usermanagement-private:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : No registry specified
+     Reason : Image is not Red Hat certified : thunderhead-usermanagement-private:01186decb3c2ea53e32f646c98ae93f2e1ca4946 : Respository not found: thunderhead-usermanagement-private
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/viz-webapp/viz-webapp-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : /:6.0.0.0_965b74009 : No registry specified
+     Reason : Image is not Red Hat certified : /:6.0.0.0_965b74009 : Respository not found: /
+     Reason : Image is not Red Hat certified : cloudera_thirdparty/busybox : No registry specified
+     Reason : Image is not Red Hat certified : cloudera_thirdparty/busybox : Respository not found: cloudera_thirdparty/busybox
+     Reason : Image is not Red Hat certified : /:9.6.7-alpine : No registry specified
+     Reason : Image is not Red Hat certified : /:9.6.7-alpine : Respository not found: /
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Cloudera/cdp-private-1.1.0-b1574/helm/zookeeper/zookeeper-1.1.3-b685.tgz
+     Reason : Image is not Red Hat certified : /cloudera_thirdparty/zookeeper:3.5.5 : No registry specified
+     Reason : Image is not Red Hat certified : /cloudera_thirdparty/zookeeper:3.5.5 : Respository not found: /cloudera_thirdparty/zookeeper
+     Reason : Image is not Red Hat certified : /cloudera_thirdparty/josdotso/zookeeper-exporter:v1.1.2 : No registry specified
+     Reason : Image is not Red Hat certified : /cloudera_thirdparty/josdotso/zookeeper-exporter:v1.1.2 : Respository not found: /cloudera_thirdparty/josdotso/zookeeper-exporter
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Hashicorp/vault-0.9.1.tgz
+     Reason : Image is not Red Hat certified : hashicorp/vault-k8s:0.8.0 : No registry specified
+     Reason : Image is not Red Hat certified : hashicorp/vault-k8s:0.8.0 : Version 0.8.0 not found. Found : 0.9.0-ubi, latest, 0.5.0-ubi, latest, 0.7.0-ubi, 0.6.0-ubi, 0.8.0-ubi, latest
+     Reason : Image is not Red Hat certified : vault:1.6.2 : No registry specified
+     Reason : Image is not Red Hat certified : vault:1.6.2 : Respository not found: vault
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Pachyderm/pachyderm-0.1.8.tgz
+     Reason : Image is not Red Hat certified : pachyderm/pachd:1.12.4 : No registry specified
+     Reason : Image is not Red Hat certified : pachyderm/pachd:1.12.4 : Respository not found: pachyderm/pachd
+     Reason : Image is not Red Hat certified : pachyderm/etcd:v3.3.5 : No registry specified
+     Reason : Image is not Red Hat certified : pachyderm/etcd:v3.3.5 : Respository not found: pachyderm/etcd
+ false  : /Users/martinmulholland/helm/Partner Helm Charts/Pachyderm/pachyderm-0.2.1.tgz
+     Reason : Image is not Red Hat certified : pachyderm/pachd:1.12.4 : No registry specified
+     Reason : Image is not Red Hat certified : pachyderm/pachd:1.12.4 : Respository not found: pachyderm/pachd
+     Reason : Image is not Red Hat certified : pachyderm/etcd:v3.3.5 : No registry specified
+     Reason : Image is not Red Hat certified : pachyderm/etcd:v3.3.5 : Respository not found: pachyderm/etcd
+     Reason : Image is not Red Hat certified : alpine : No registry specified
+     Reason : Image is not Red Hat certified : alpine : Respository not found: alpine
+Tests : 84, Passes : 15, No Images : 15
+PASS
+ok  	github.com/redhat-certification/chart-verifier/pkg/chartverifier/checks	36.906s

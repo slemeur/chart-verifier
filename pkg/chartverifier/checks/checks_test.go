@@ -17,6 +17,10 @@
 package checks
 
 import (
+	"fmt"
+	"os"
+	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/spf13/viper"
@@ -384,4 +388,104 @@ func TestImageCertify(t *testing.T) {
 			}
 		})
 	}
+
+}
+
+func TestImageParsing(t *testing.T) {
+
+	type testCase struct {
+		description      string
+		image            string
+		expectedVersion  string
+		expectedRepo     string
+		expectedRegistry string
+	}
+
+	testCases := []testCase{
+		{"Single repo Default version 1", "repo", "latest", "repo", ""},
+		{"Single repo Default version 2", "repo:", "latest", "repo", ""},
+		{"Single repo with version", "repo:1.1.8", "1.1.8", "repo", ""},
+		{"Double repo with version", "repo/product:1.1.8", "1.1.8", "repo/product", ""},
+		{"Registry, double repo with version", "registry/repo/product:1.1.8", "1.1.8", "repo/product", "registry"},
+		{"Registry with port, double repo with version", "registry:8080/repo/product:1.1.8", "1.1.8", "repo/product", "registry:8080"},
+	}
+
+	for _, testCase := range testCases {
+		registries, repository, version := getImageParts(testCase.image)
+
+		//fmt.Println("Image : " + testCase.image)
+		//if len(registries) > 0  {
+		///	fmt.Println("    Registry : " + registries[0])
+		//}
+		//fmt.Println("    Repository : " + repository)
+		//fmt.Println("    Version : " + version)
+
+		require.Equal(t, repository, testCase.expectedRepo)
+		require.Equal(t, version, testCase.expectedVersion)
+		if len(registries) == 0 {
+			require.True(t, len(testCase.expectedRegistry) == 0)
+		} else {
+			require.Equal(t, registries[0], testCase.expectedRegistry)
+		}
+	}
+}
+
+func TestPartnerCharts(t *testing.T) {
+
+	tarballs, err := WalkMatch("/Users/martinmulholland/helm/Partner Helm Charts", "*.tgz")
+	require.NoError(t, err)
+
+	numTests := 0
+	numPasses := 0
+	numNoImages := 0
+
+	for _, tarball := range tarballs {
+		config := viper.New()
+		numTests++
+		r, err := ImagesAreCertified(tarball, config)
+		if err == nil {
+			if r.Ok {
+				fmt.Println("\n\nWINNNER!!!")
+				numPasses++
+				if strings.Contains(r.Reason[0], "No images to certify") {
+					numNoImages++
+				}
+			}
+			fmt.Println(fmt.Sprintf(" %t  : %s", r.Ok, tarball))
+			for _, reason := range r.Reason {
+				fmt.Println("     Reason : " + reason)
+			}
+			if r.Ok {
+				fmt.Print("\n\n")
+			}
+		} else {
+			fmt.Println(fmt.Sprintf(" FAIL  : %s", tarball))
+			fmt.Println(fmt.Sprintf("      error : %v", err))
+		}
+	}
+
+	fmt.Println(fmt.Sprintf("Tests : %d, Passes : %d, No Images : %d", numTests, numPasses, numNoImages))
+
+}
+
+func WalkMatch(root, pattern string) ([]string, error) {
+	var matches []string
+	err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if info.IsDir() {
+			return nil
+		}
+		if matched, err := filepath.Match(pattern, filepath.Base(path)); err != nil {
+			return err
+		} else if matched {
+			matches = append(matches, path)
+		}
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return matches, nil
 }

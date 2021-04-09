@@ -244,15 +244,15 @@ func ImagesAreCertified(uri string, _ *viper.Viper) (Result, error) {
 		r.SetResult(true, NoImagesToCertify)
 	} else {
 		for _, image := range images {
-			imageParts := strings.Split(image, ":")
-			repository := imageParts[0]
-			var version string
-			if len(imageParts) > 1 {
-				version = imageParts[1]
+
+			registries, repository, version := getImageParts(image)
+
+			if len(registries) == 0 {
+				r.AddResult(false, fmt.Sprintf("%s : %s : %v", ImageNotCertified, image, "No registry specified"))
+				registries, err = getImageRegistries(repository)
 			}
-			registries, getImagesErr := getImageRegistries(repository)
-			if getImagesErr != nil {
-				err = getImagesErr
+
+			if err != nil {
 				r.AddResult(false, fmt.Sprintf("%s : %s : %v", ImageNotCertified, image, err))
 			} else if len(registries) == 0 {
 				r.AddResult(false, fmt.Sprintf("%s : %s", ImageNotCertified, image))
@@ -282,4 +282,30 @@ func ImagesAreCertified(uri string, _ *viper.Viper) (Result, error) {
 	}
 
 	return r, nil
+}
+
+func getImageParts(image string) ([]string, string, string) {
+
+	imageParts := strings.Split(image, "/")
+
+	lastPart := imageParts[len(imageParts)-1]
+	lastParts := strings.Split(lastPart, ":")
+	var version string
+	if len(lastParts) > 1 && len(lastParts[1]) > 0 {
+		version = lastParts[1]
+	} else {
+		version = "latest"
+	}
+
+	imageParts[len(imageParts)-1] = lastParts[0]
+
+	var registries []string
+	var repository string
+	if len(imageParts) > 2 && len(imageParts[0]) > 1 {
+		registries = append(registries, imageParts[0])
+		repository = strings.Join(imageParts[1:], "/")
+	} else {
+		repository = strings.Join(imageParts, "/")
+	}
+	return registries, repository, version
 }

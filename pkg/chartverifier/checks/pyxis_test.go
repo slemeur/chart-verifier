@@ -17,6 +17,7 @@
 package checks
 
 import (
+	"fmt"
 	"github.com/stretchr/testify/require"
 	"testing"
 )
@@ -60,7 +61,7 @@ func Test_getImageRegistries(t *testing.T) {
 
 }
 
-func Test_checkImageInRegistry(t *testing.T) {
+func Best_checkImageInRegistry(t *testing.T) {
 
 	type testCase struct {
 		description string
@@ -99,4 +100,24 @@ func Test_checkImageInRegistry(t *testing.T) {
 		})
 	}
 
+	totalRepos, totalTags, totalCandidates := findTags("docker.io")
+
+	numRepos, numTags, newCandidates := findTags("registry.redhat.io")
+	totalRepos += numRepos
+	totalTags += numTags
+	totalCandidates = append(totalCandidates, newCandidates...)
+	numRepos, numTags, newCandidates = findTags("registry.access.redhat.com")
+	totalRepos += numRepos
+	totalTags += numTags
+	totalCandidates = append(totalCandidates, newCandidates...)
+	numRepos, numTags, newCandidates = findTags("registry.connect.redhat.com")
+	totalRepos += numRepos
+	totalTags += numTags
+	totalCandidates = append(totalCandidates, newCandidates...)
+
+	fmt.Println(fmt.Sprintf("%d repositores and %d tags were checked", totalRepos, totalTags))
+	fmt.Println(fmt.Sprintf("%d candidates were found :", len(totalCandidates)))
+	for _, candidate := range totalCandidates {
+		fmt.Println(fmt.Sprintf("Candidate : %s ", candidate))
+	}
 }
