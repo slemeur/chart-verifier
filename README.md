@@ -105,15 +105,15 @@ this generates a report.yaml.asc file which must submitted along with the report
 signing see: https://help.ubuntu.com/community/GnuPrivacyGuardHowto.
 
 When a chart is submitted a series of checks will be run against the associated Pull Request. The PR will fail
-and an exception process will be started if the report contains on or more failures or is missing any mandatory 
+and an exception process will be started if the report contains one or more failures or is missing any mandatory 
 tests. For more information on the submission process see: https://github.com/openshift-helm-charts/repo.
 
 If the report is to be submitted without a chart, the report should be run against the chart in its final 
 location. This is because the verifier will record the chart-uri specified when the report was run and, 
 in the absence of a submitted chart, this uri will be used for publication.
 
-If the report is submitted with a chart it must be run against the chart as submitted. So, for example, if submiting 
-a tarball run the report against the tarball that will be submitted. This is important because the report will calculate 
+If the report is submitted with a chart it must be run against the chart as submitted. So, for example, if submitting 
+a tarball, run the report against the tarball that will be submitted. This is important because the report will calculate 
 and record a sha256 value for the chart. The submission process will then re-generate the sha256 value and the process 
 will fail if the sha values do not match.
 
