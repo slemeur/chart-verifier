@@ -1,10 +1,14 @@
 # chart-verifier
 
-`chart-verifier` is a tool that validates a Helm chart against a configurable list of checks; individual checks can be
-included or excluded through command line options. The default set of tests covers Red Hat’s recommendations.
+`chart-verifier` is a tool that validates a Helm chart against a configurable list of checks. The tool 
+produces are report which can be used when submitting a chart for inclusion in the Red Hat helm repository.   
+Individual checks can be included or excluded through command line options. The default set of tests covers 
+Red Hat’s submission requirements.
 
 Each check is independent and execution order is not guaranteed. Input is provided through options in
-the command line interface; currently the only input is the required `uri` option.
+the command line interface.
+
+## checks
 
 The following checks have been implemented:
 
@@ -14,19 +18,115 @@ The following checks have been implemented:
 | `has-readme` | Checks whether the Helm chart contains a `README.md` file.
 | `contains-test` | Checks whether the Helm chart contains at least one test file.
 | `has-minkubeversion` | Checks whether the Helm chart's `Chart.yaml` includes the `minKubeVersion` field.
-| `readme-contains-values-schema` | Checks whether the Helm chart `README.md` file contains a `values` schema section.
-| `not-contains-crds` | Check whether the Helm chart does not include CRDs.
+| `contains-values-schema` | Checks whether the Helm chart contains a values schema.
+| `not-contains-crds` | Checks whether the Helm chart does not include CRDs.
+| `not-contain-csi-objects` | Checks whether the Helm chart does not include CSI objects.
+| `images-are-certified` | Checks whether images referenced by the helm chart are Red Hat certified images.  
+| `helm-lint` | Runs the helm lint command to check that the chart is wel formed.
+| `contains-values` | Checks whether the Helm chart contains a values file.
 
-The following checks are being implemented and/or considered:
+## running
 
-| Name | Description
-|---|---
-| `keywords-are-openshift-categories` | Checks whether the Helm chart's `Chart.yaml` file includes keywords mapped to OpenShift categories.
-| `is-commercial-chart` | Checks whether the Helm chart is a Commercial chart.
-| `is-community-chart` | Checks whether the Helm chart is a Community chart.
-| `not-contains-infra-plugins-and-drivers` | Check whether the Helm chart does not include infra plugins and drivers (network, storage, hardware, etc)
-| `can-be-installed-without-manual-prerequisites` |
-| `can-be-installed-without-cluster-admin-privileges` |
+To run the version required for chart submission use:
+
+```
+docker run -it --rm quay.io/redhat-certification/chart-verifier:0d3706f verify <chart-uri>
+```
+
+This will run all required checks and output the report in yaml format to stdout. However, for submission purposes the 
+output must be captured in a file `report.yaml`: 
+
+```
+docker run -it --rm quay.io/redhat-certification/chart-verifier:0d3706f verify <chart-uri> 2> report.yaml
+```
+
+To get a full list of options for running the command run: 
+
+```
+docker run -it --rm quay.io/redhat-certification/chart-verifier:0d3706f verify help
+```
+
+This will produce the following output:
+```
+Verifies a Helm chart by checking some of its characteristics
+
+Usage:
+  chart-verifier verify <chart-uri> [flags]
+
+Flags:
+  -S, --chart-set strings          set values for the chart (can specify multiple or separate values with commas: key1=val1,key2=val2)
+  -F, --chart-set-file strings     set values from respective files specified via the command line (can specify multiple or separate values with commas: key1=path1,key2=path2)
+  -X, --chart-set-string strings   set STRING values for the chart (can specify multiple or separate values with commas: key1=val1,key2=val2)
+  -f, --chart-values strings       specify values in a YAML file or a URL (can specify multiple)
+  -x, --disable strings            all checks will be enabled except the informed ones
+  -e, --enable strings             only the informed checks will be enabled
+  -h, --help                       help for verify
+  -o, --output string              the output format: default, json or yaml
+  -s, --set strings                overrides a configuration, e.g: dummy.ok=false
+
+Global Flags:
+      --config string   config file (default is $HOME/.chart-verifier.yaml)
+```
+
+### Notes on running
+
+The checks performed include running ```helm lint```, and ```helm template```(for red hat image certification) against 
+the chart. As a result if the chart requires additional values for these to succeed the values must be specified using 
+the options available. These options  are similar to those use by ```helm lint``` and ```helm template```. Note, for 
+``helm lint`` the check will pass if there are no error messages - warning and info messages do not cause the check to fail.
+
+Also note that the check that images are red hat certified requires an internet connection.  
+
+Further the checks include installing the chart on an available cluster and running the chart tests. Information on this 
+will be provided when this functionality is added.
+
+## Submitting a chart and report by a Partner
+
+Charts can be submitted for inclusion in the Red Hat registry in several forms:
+- As a tarball with or without a report.
+- As a extracted chart, with or without a report.
+- No chart, just a report.
+
+If a report is not included it will be generated as part of the submission process.
+
+A chart will be submitted in a directory structure:
+
+```charts/partners/<partnter-name>/<chart-name/<chart-version>/```
+
+if included, the generated report is included in the same directory 
+
+```charts/partners/<partnter-name>/<chart-name/<chart-version>/report.yaml```
+
+further the report should be signed: 
+
+```gpg --sign --armor --output report.yaml.asc --detach-sign report.yaml```
+
+this generates a report.yaml.asc file which must submitted along with the report. For more information on
+signing see: https://help.ubuntu.com/community/GnuPrivacyGuardHowto.
+
+When a chart is submitted a series of checks will be run against the associated Pull Request. The PR will fail
+and an exception process will be started if the report contains on or more failures or is missing any mandatory 
+tests. For more information on the submission process see: https://github.com/openshift-helm-charts/repo.
+
+If the report is to be submitted without a chart, the report should be run against the chart in its final 
+location. This is because the verifier will record the chart-uri specified when the report was run and, 
+in the absence of a submitted chart, this uri will be used for publication.
+
+If the report is submitted with a chart it must be run against the chart as submitted. So, for example, if submiting 
+a tarball run the report against the tarball that will be submitted. This is important because the report will calculate 
+and record a sha256 value for the chart. The submission process will then re-generate the sha256 value and the process 
+will fail if the sha values do not match.
+
+If a succesful run of the report requires additional values to be specified the report must be submitted with the chart.
+This is because the submission process does not have access to the values and the report generated would inevitably include
+failures.
+
+## Suggestions
+
+If you have any suggestions for improving the verifier, for example additional checks to add, please open 
+an issue in this repository.
+
+# A deeper dive for developers 
 
 ## Architecture
 
@@ -48,14 +148,6 @@ of the chart itself; for example, whether a `README.md` file exists, or whether 
 specification, implicating in offering a cache API layer is required to avoid downloading and unpacking the charts for
 each test.
 
-## Getting chart-verifier
-
-Container images built from the source code are hosted in https://quay.io/repository/redhat-certification/chart-verifier
-; to download using `docker` execute the following command:
-
-```text
-docker pull quay.io/redhat-certification/chart-verifier
-```
 
 ## Building chart-verifier
 
@@ -86,17 +178,17 @@ PS C:\Users\igors\GolandProjects\chart-verifier> .\hack\build-image.ps1
  => exporting to image                                                                                                                                                                                                                                               0.2s
  => => exporting layers                                                                                                                                                                                                                                              0.2s
  => => writing image sha256:7302e88a2805cb4be1b9e130d057bd167381e27f314cbe3c28fbc6cb7ee6f2a1                                                                                                                                                                         0.0s
- => => naming to quay.io/redhat-certification/chart-verifier:07e369d
+ => => naming to quay.io/redhat-certification/chart-verifier:0d3706f
 ```
 
 The container image created by the build program is tagged with the commit ID of the working directory at the time of
 the build: `quay.io/redhat-certification/chart-verifier:0d3706f`.
 
-## Usage
+## Running built images
 
-### Local Usage
+### Local command
 
-To verify a chart against all available checks:
+To verify a chart against all available checks, for exmaple:
 
 ```text
 > out/chart-verifier verify ./chart.tgz
@@ -116,7 +208,7 @@ To apply all checks except `is-helm-v3`:
 > out/chart-verifier verify --disable is-helm-v3 https://www.example.com/chart.tgz
 ```
 
-### Container Usage
+### Container Image
 
 The container image produced in 'Building chart-verifier' can then be executed with the Docker client
 as `docker run -it --rm quay.io/redhat-certification/chart-verifier:0d3706f verify`.
@@ -132,10 +224,15 @@ Usage:
   chart-verifier verify <chart-uri> [flags]
 
 Flags:
-  -x, --disable strings   all checks will be enabled except the informed ones
-  -e, --enable strings    only the informed checks will be enabled
-  -h, --help              help for verify
-  -o, --output string     the output format: default, json or yaml
+  -S, --chart-set strings          set values for the chart (can specify multiple or separate values with commas: key1=val1,key2=val2)
+  -F, --chart-set-file strings     set values from respective files specified via the command line (can specify multiple or separate values with commas: key1=path1,key2=path2)
+  -X, --chart-set-string strings   set STRING values for the chart (can specify multiple or separate values with commas: key1=val1,key2=val2)
+  -f, --chart-values strings       specify values in a YAML file or a URL (can specify multiple)
+  -x, --disable strings            all checks will be enabled except the informed ones
+  -e, --enable strings             only the informed checks will be enabled
+  -h, --help                       help for verify
+  -o, --output string              the output format: default, json or yaml
+  -s, --set strings                overrides a configuration, e.g: dummy.ok=false
 
 Global Flags:
       --config string   config file (default is $HOME/.chart-verifier.yaml)
@@ -146,7 +243,6 @@ https verifications, no mounting is required:
 
 ```text
 > docker run --rm quay.io/redhat-certification/chart-verifier:latest verify https://github.com/redhat-certification/chart-verifier/blob/main/pkg/chartverifier/checks/chart-0.1.0-v3.valid.tgz?raw=true
-
 ```
 
 Here is another example for a chart on the host system using volume mount. In
@@ -154,5 +250,4 @@ the below example, the chart is located in the current directory:
 
 ```text
 > docker run -v $(pwd):/charts --rm quay.io/redhat-certification/chart-verifier:latest verify /charts/chart-0.1.0-v3.valid.tgz
-
 ```
