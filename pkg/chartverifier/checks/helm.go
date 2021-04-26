@@ -211,7 +211,7 @@ func getImageReferences(chartUri string, vals map[string]interface{}) ([]string,
 			line := scanner.Text()
 			line = strings.ReplaceAll(line, " ", "")
 			if strings.HasPrefix(line, "image:") {
-				image := strings.Trim(strings.TrimLeft(line, "image:"), "\"")
+				image := strings.Trim(strings.TrimLeft(line, "image:"), "\"'")
 				if !imagesMap[image] {
 					imagesMap[image] = true
 				}
