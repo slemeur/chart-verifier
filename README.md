@@ -1,18 +1,21 @@
-# chart-verifier
+# Chart Verifier
 
-`chart-verifier` is a tool that validates a Helm chart against a configurable list of checks. The tool 
-produces are report which can be used when submitting a chart for inclusion in the Red Hat helm repository.   
-Individual checks can be included or excluded through command line options. The default set of tests covers 
-Red Hat’s submission requirements.
+`chart-verifier` is a tool that verifies a Helm chart is compliant against a configurable list of checks. 
 
-Each check is independent and execution order is not guaranteed. Input is provided through options in
-the command line interface.
+This tool can be used to help ensuring the quality of Helm Charts, from its associated metadatas, formating and readiness for distribution. Additionnaly, it also helps ensuring the Helm Chart will work seamlessly on Red Hat OpenShift and can be submitted as a certified Helm Chart in the [Red Hat Helm Repository](https://github.com/openshift-helm-charts).
 
-## checks
+## Features
+
+- Helm Chart Verification: Verifies an Helm Chart is compliant with a certain set of checks.
+- Red Hat Certified Chart Validation: Verifies an Helm Chart's readiness for being certified and submitted in [Red Hat Helm Repository](https://github.com/openshift-helm-charts).
+- Report Generation: Generates a verification report in YAML format.
+- Optionable Checks: Defines the checks you want to execute during the verification process.
+
+## Existing Checks
 
 The following checks have been implemented:
 
-| Name | Description
+| Check | Description
 |---|---
 | `is-helm-v3` | Checks whether the given `uri` is a Helm v3 chart.
 | `has-readme` | Checks whether the Helm chart contains a `README.md` file.
@@ -25,7 +28,24 @@ The following checks have been implemented:
 | `helm-lint` | Runs the helm lint command to check that the chart is wel formed.
 | `contains-values` | Checks whether the Helm chart contains a values file.
 
-## running
+Further the checks include installing the chart on an available cluster and running the chart tests. Information on this 
+will be provided when this functionality will be added.
+
+## Usage
+
+### Pre Requisities
+
+- Docker ?
+- ???
+- Internet Connection: The check that images are Red Hat Certified requires an internet connection.  
+
+### Know before you start
+
+- Individual checks can be included or excluded through command line options. 
+- The default set of tests covers Red Hat’s submission requirements.
+- Each check is independent and execution order is not guaranteed. 
+
+### Basic Usage with Docker
 
 To run the version required for chart submission use:
 
@@ -68,24 +88,46 @@ Global Flags:
       --config string   config file (default is $HOME/.chart-verifier.yaml)
 ```
 
-### Notes on running
+### Notes on usage
 
 The checks performed include running ```helm lint```, and ```helm template```(for red hat image certification) against 
 the chart. As a result if the chart requires additional values for these to succeed the values must be specified using 
-the options available. These options  are similar to those use by ```helm lint``` and ```helm template```. Note, for 
-``helm lint`` the check will pass if there are no error messages - warning and info messages do not cause the check to fail.
+the options available. These options are similar to those use by ```helm lint``` and ```helm template```.
 
-Also note that the check that images are red hat certified requires an internet connection.  
+```bash
+INCLUDE SAMPLE
+```
 
-Further the checks include installing the chart on an available cluster and running the chart tests. Information on this 
-will be provided when this functionality is added.
+Note, for ``helm lint`` the check will pass if there are no error messages - warning and info messages do not cause the check to fail.
 
-## Submitting a chart and report by a Partner
 
-Charts can be submitted for inclusion in the Red Hat registry in several forms:
-- As a tarball with or without a report.
-- As a extracted chart, with or without a report.
-- No chart, just a report.
+## Submitting a Chart for inclusion in Red Hat Helm Repository and Certification
+
+### Repository
+
+[Red Hat Helm Repository](https://github.com/openshift-helm-charts) is accessible on GitHub:
+- [Red Hat Helm Repository](https://github.com/openshift-helm-charts/repo)
+
+### Available Options
+
+| Option | Description
+|---|---
+| **1. Helm Chart Tarball** | Submit your Chart with its tarball (`chart-verifier`'s report optional).
+| **2. Helm Chart extracted Tarball** | Submit your Chart with its extracted tarball (`chart-verifier`'s report optional).
+| **3. chart-verifier Report only** | When your Chart will not be hosted in the Red Hat Helm repository, you can just submit the generated report from `chart-verifier` tool.
+
+### Option1: Submitting Helm Chart as a Tarball
+
+...
+
+### Option2: Submitting Helm Chart extracted Tarball
+
+...
+
+### Option3: Submitting with only `chart-verifier` report
+
+...
+
 
 If a report is not included it will be generated as part of the submission process.
 
@@ -104,7 +146,7 @@ further the report should be signed:
 this generates a report.yaml.asc file which must submitted along with the report. For more information on
 signing see: https://help.ubuntu.com/community/GnuPrivacyGuardHowto.
 
-When a chart is submitted a series of checks will be run against the associated Pull Request. The PR will fail
+When a Chart is submitted a series of checks will be run against the associated Pull Request. The PR will fail
 and an exception process will be started if the report contains one or more failures or is missing any mandatory 
 tests. For more information on the submission process see: https://github.com/openshift-helm-charts/repo.
 
